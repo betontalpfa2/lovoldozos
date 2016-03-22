@@ -1,21 +1,22 @@
 package szobalovo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException;
+import java.util.List;
 
 public interface IEngine {
 	
 	/**
 	 * Functions for main menu
 	 */
-	HashMap<String, String> getSettings();
-	void saveSettings();
+	GameSettings getSettings();
+	void saveSettings(GameSettings gameSettings);
 	
 	/**
 	 * Functions for start a new game
+	 * @throws IOException 
 	 */
-	void initNewGame();
-	ArrayList<String> getCloudWords();
+	void initNewGame() throws IOException;
+	List<String> getCloudWords();
 	
 	/**
 	 * Functions for controlling the game
