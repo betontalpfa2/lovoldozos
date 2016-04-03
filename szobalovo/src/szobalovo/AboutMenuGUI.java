@@ -58,7 +58,7 @@ public class AboutMenuGUI {
 		ExitAboutLabButt.setIcon(new ImageIcon(img.getScaledInstance(63, 22, Image.SCALE_DEFAULT)));
 		frame.getContentPane().add(ExitAboutLabButt);
 		
-		JLabel lblAboutTheAuthors = new JLabel("<html><h3>The autors:</h3><h4>Racz Benedek Gyorgy(AQAEFR)</h4><h4>Oliver Bitay(R5R1I5)</h4><h4>Hencz Andras(IWQKZW)</h4><h3>Konzulens:</h3><h4>Gyorke Peter</h4><br></html>", SwingConstants.LEFT);
+		JLabel lblAboutTheAuthors = new JLabel("<html><h3>The authors:</h3><h4>Racz Benedek Gyorgy(AQAEFR)</h4><h4>Oliver Bitay(R5R1I5)</h4><h4>Hencz Andras(IWQKZW)</h4><h3>Konzulens:</h3><h4>Gyorke Peter</h4><br></html>", SwingConstants.LEFT);
 		lblAboutTheAuthors.setVerticalAlignment(SwingConstants.TOP);
 		lblAboutTheAuthors.setBounds(25, 31, 323, 222);
 		frame.getContentPane().add(lblAboutTheAuthors);

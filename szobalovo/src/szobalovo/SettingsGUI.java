@@ -10,6 +10,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JSpinner;
+import javax.swing.SwingConstants;
 
 public class SettingsGUI {
 
@@ -18,6 +20,14 @@ public class SettingsGUI {
 	String[] PossibleLanguages = { "English", "Hungarian"};
 	private JLabel AboutLabelButton;
 	private JLabel SaveBackLabelButton;
+	private JTextField LevelOfGame;
+	private JTextField TimeOfPlay;
+	private JLabel GameTimeDown;
+	private JLabel GameTimeUp;
+	private int MaxGameLevel = 5;
+	private int MinGameLevel = 1;
+	private int MaxGameTime = 5;
+	private int MinGameTime = 1;
 
 	/**
 	 * Create the application.
@@ -77,6 +87,115 @@ public class SettingsGUI {
 				SaveBackLabelButton.setBorder(OldBorderSaveBack);
 			}
 		});
+		
+		JLabel GameLevelUp = new JLabel("");
+		GameLevelUp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int GameLevelnum = Integer.parseInt(LevelOfGame.getText());
+				if(GameLevelnum<MaxGameLevel)
+				{
+					LevelOfGame.setText(Integer.toString(GameLevelnum+1));
+				}
+			}
+			Border OldBorderGLUp = GameLevelUp.getBorder();
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				GameLevelUp.setBorder(GreyBorder);
+			}
+		
+			@Override
+			public void mouseExited(MouseEvent e) {
+				GameLevelUp.setBorder(OldBorderGLUp);
+			}
+		});
+		
+		GameTimeDown = new JLabel("");
+		GameTimeDown.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int Gametimenum = Integer.parseInt(TimeOfPlay.getText());
+				if(Gametimenum>MinGameTime)
+				{
+					TimeOfPlay.setText(Integer.toString(Gametimenum-1));
+				}
+			}
+			Border OldBorderGTDown = GameTimeDown.getBorder();
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				GameTimeDown.setBorder(GreyBorder);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				GameTimeDown.setBorder(OldBorderGTDown);
+			}
+		});
+		
+		GameTimeUp = new JLabel("");
+		GameTimeUp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int Gametimenum = Integer.parseInt(TimeOfPlay.getText());
+				if(Gametimenum<MaxGameTime)
+				{
+					TimeOfPlay.setText(Integer.toString(Gametimenum+1));
+				}
+			}
+			Border OldBorderGTUp = GameLevelUp.getBorder();
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				GameTimeUp.setBorder(GreyBorder);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				GameTimeUp.setBorder(OldBorderGTUp);
+			}
+		});
+		GameTimeUp.setBounds(325, 140, 39, 25);
+		frame.getContentPane().add(GameTimeUp);
+		GameTimeDown.setBounds(278, 140, 39, 25);
+		frame.getContentPane().add(GameTimeDown);
+		GameLevelUp.setBounds(102, 94, 39, 25);
+		frame.getContentPane().add(GameLevelUp);
+		
+		JLabel GameLevelDown = new JLabel("");
+		GameLevelDown.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int GameLevelnum = Integer.parseInt(LevelOfGame.getText());
+				if(GameLevelnum>MinGameLevel)
+				{
+					LevelOfGame.setText(Integer.toString(GameLevelnum-1));
+				}
+			}
+			Border OldBorderGLDown = GameLevelDown.getBorder();
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				GameLevelDown.setBorder(GreyBorder);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				GameLevelDown.setBorder(OldBorderGLDown);
+			}
+		});
+		GameLevelDown.setBounds(56, 94, 39, 25);
+		frame.getContentPane().add(GameLevelDown);
+		
+		TimeOfPlay = new JTextField();
+		TimeOfPlay.setHorizontalAlignment(SwingConstants.CENTER);
+		TimeOfPlay.setText("5");
+		TimeOfPlay.setEditable(false);
+		TimeOfPlay.setBounds(172, 144, 37, 21);
+		frame.getContentPane().add(TimeOfPlay);
+		TimeOfPlay.setColumns(10);
+		
+		LevelOfGame = new JTextField();
+		LevelOfGame.setHorizontalAlignment(SwingConstants.CENTER);
+		LevelOfGame.setText("1");
+		LevelOfGame.setEditable(false);
+		LevelOfGame.setBounds(170, 96, 37, 21);
+		frame.getContentPane().add(LevelOfGame);
+		LevelOfGame.setColumns(10);
 		SaveBackLabelButton.setBounds(241, 335, 128, 31);
 		frame.getContentPane().add(SaveBackLabelButton);
 		AboutLabelButton.setBounds(87, 264, 134, 42);
@@ -89,6 +208,7 @@ public class SettingsGUI {
 		frame.getContentPane().add(SelectLanguage);
 		
 		PlayerName = new JTextField();
+		PlayerName.setHorizontalAlignment(SwingConstants.CENTER);
 		PlayerName.setText("For example John");
 		PlayerName.setBounds(170, 54, 128, 18);
 		frame.getContentPane().add(PlayerName);
