@@ -193,7 +193,7 @@ public class Engine implements IEngine {
 		   return array;
 		}
 
-	public static void main(String[] args){
+/*	public static void main(String[] args){
 		Engine engine = new Engine();
 		try {
 			engine.initNewGame();
@@ -206,6 +206,6 @@ public class Engine implements IEngine {
 		System.out.println("Get word cloud: " + engine.getCloudWords());
 		System.out.println("Get settings: " + engine.getSettings().toString());
 		
-	}
+	}*/
 	
 }
