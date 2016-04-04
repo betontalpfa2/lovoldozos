@@ -21,7 +21,7 @@ public class SettingsGUI {
 	String[] possibleLanguages = { "English", "Hungarian"};
 	private JLabel aboutLabelButton;
 	private JLabel saveBackLabelButton;
-	private JTextField LevelOfGame;
+	private JTextField levelOfGame;
 	private JTextField timeOfPlay;
 	private JLabel gameTimeDown;
 	private JLabel gameTimeUp;
@@ -51,8 +51,8 @@ public class SettingsGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel BackgroundLabel = new JLabel("");
-		BackgroundLabel.setBounds(0, 0, 389, 379);
+		JLabel backgroundLabel = new JLabel("");
+		backgroundLabel.setBounds(0, 0, 389, 379);
 		Image img = new ImageIcon(this.getClass().getResource("/SettingsGUIbackground.png")).getImage();
 		
 		/**
@@ -70,25 +70,25 @@ public class SettingsGUI {
 		 * ---------------------------------------------------------------------
 		 * Setup: game level buttons
 		 */
-		JLabel GameLevelUp = new JLabel("");
-		GameLevelUp.addMouseListener(new MouseAdapter() {
+		JLabel gameLevelUp = new JLabel("");
+		gameLevelUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int GameLevelnum = Integer.parseInt(LevelOfGame.getText());
+				int GameLevelnum = Integer.parseInt(levelOfGame.getText());
 				if(GameLevelnum<maxGameLevel)
 				{
-					LevelOfGame.setText(Integer.toString(GameLevelnum+1));
+					levelOfGame.setText(Integer.toString(GameLevelnum+1));
 				}
 			}
-			Border OldBorderGLUp = GameLevelUp.getBorder();
+			Border OldBorderGLUp = gameLevelUp.getBorder();
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				GameLevelUp.setBorder(GreyBorder);
+				gameLevelUp.setBorder(GreyBorder);
 			}
 		
 			@Override
 			public void mouseExited(MouseEvent e) {
-				GameLevelUp.setBorder(OldBorderGLUp);
+				gameLevelUp.setBorder(OldBorderGLUp);
 			}
 		});
 		
@@ -96,10 +96,10 @@ public class SettingsGUI {
 		GameLevelDown.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int GameLevelnum = Integer.parseInt(LevelOfGame.getText());
+				int GameLevelnum = Integer.parseInt(levelOfGame.getText());
 				if(GameLevelnum>minGameLevel)
 				{
-					LevelOfGame.setText(Integer.toString(GameLevelnum-1));
+					levelOfGame.setText(Integer.toString(GameLevelnum-1));
 				}
 			}
 			Border OldBorderGLDown = GameLevelDown.getBorder();
@@ -115,13 +115,13 @@ public class SettingsGUI {
 		GameLevelDown.setBounds(56, 94, 39, 25);
 		frame.getContentPane().add(GameLevelDown);
 
-		LevelOfGame = new JTextField();
-		LevelOfGame.setHorizontalAlignment(SwingConstants.CENTER);
-		LevelOfGame.setText("1");
-		LevelOfGame.setEditable(false);
-		LevelOfGame.setBounds(170, 96, 37, 21);
-		frame.getContentPane().add(LevelOfGame);
-		LevelOfGame.setColumns(10);
+		levelOfGame = new JTextField();
+		levelOfGame.setHorizontalAlignment(SwingConstants.CENTER);
+		levelOfGame.setText("1");
+		levelOfGame.setEditable(false);
+		levelOfGame.setBounds(170, 96, 37, 21);
+		frame.getContentPane().add(levelOfGame);
+		levelOfGame.setColumns(10);
 		
 		/**
 		 * ---------------------------------------------------------------------
@@ -131,20 +131,20 @@ public class SettingsGUI {
 		gameTimeDown.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int Gametimenum = Integer.parseInt(timeOfPlay.getText());
-				if(Gametimenum>minGameTime)
+				int gametimenum = Integer.parseInt(timeOfPlay.getText());
+				if(gametimenum>minGameTime)
 				{
-					timeOfPlay.setText(Integer.toString(Gametimenum-1));
+					timeOfPlay.setText(Integer.toString(gametimenum-1));
 				}
 			}
-			Border OldBorderGTDown = gameTimeDown.getBorder();
+			Border oldBorderGTDown = gameTimeDown.getBorder();
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				gameTimeDown.setBorder(GreyBorder);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				gameTimeDown.setBorder(OldBorderGTDown);
+				gameTimeDown.setBorder(oldBorderGTDown);
 			}
 		});
 		
@@ -152,13 +152,13 @@ public class SettingsGUI {
 		gameTimeUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int Gametimenum = Integer.parseInt(timeOfPlay.getText());
-				if(Gametimenum<maxGameTime)
+				int gametimenum = Integer.parseInt(timeOfPlay.getText());
+				if(gametimenum<maxGameTime)
 				{
-					timeOfPlay.setText(Integer.toString(Gametimenum+1));
+					timeOfPlay.setText(Integer.toString(gametimenum+1));
 				}
 			}
-			Border OldBorderGTUp = GameLevelUp.getBorder();
+			Border OldBorderGTUp = gameLevelUp.getBorder();
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				gameTimeUp.setBorder(GreyBorder);
@@ -172,8 +172,8 @@ public class SettingsGUI {
 		frame.getContentPane().add(gameTimeUp);
 		gameTimeDown.setBounds(278, 140, 39, 25);
 		frame.getContentPane().add(gameTimeDown);
-		GameLevelUp.setBounds(102, 94, 39, 25);
-		frame.getContentPane().add(GameLevelUp);
+		gameLevelUp.setBounds(102, 94, 39, 25);
+		frame.getContentPane().add(gameLevelUp);
 		
 		timeOfPlay = new JTextField();
 		timeOfPlay.setHorizontalAlignment(SwingConstants.CENTER);
@@ -239,8 +239,8 @@ public class SettingsGUI {
 		});
 		saveBackLabelButton.setBounds(241, 335, 128, 31);
 		frame.getContentPane().add(saveBackLabelButton);
-		BackgroundLabel.setIcon(new ImageIcon(img.getScaledInstance(389, 379, Image.SCALE_DEFAULT)));
-		frame.getContentPane().add(BackgroundLabel);
+		backgroundLabel.setIcon(new ImageIcon(img.getScaledInstance(389, 379, Image.SCALE_DEFAULT)));
+		frame.getContentPane().add(backgroundLabel);
 		
 	}
 	// functions to represent as inteface
