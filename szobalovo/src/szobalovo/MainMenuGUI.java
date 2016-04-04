@@ -4,14 +4,9 @@ import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import javafx.scene.paint.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,12 +16,14 @@ import java.awt.event.MouseEvent;
 
 public class MainMenuGUI {
 
+	static Engine engine;
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		engine = new Engine();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -207,7 +204,7 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			SettingsGUI SeetingMenu = new SettingsGUI();
+			new SettingsGUI();
 			
 		}
 		finally
@@ -228,7 +225,7 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			AboutMenuGUI aboutmenu = new AboutMenuGUI();
+			new AboutMenuGUI();
 		}
 		finally
 		{
