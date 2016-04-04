@@ -11,9 +11,7 @@ import javax.swing.JComboBox;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.SwingConstants;
-
 import szobalovo.GameSettings.Languages;
 
 public class SettingsGUI {
