@@ -184,7 +184,10 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			JOptionPane.showMessageDialog(null,"SignlePlayermenu");
+			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
+			PlayGround newPlay = new PlayGround(true);
+			
+			
 		}
 		finally
 		{
