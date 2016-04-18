@@ -1,9 +1,7 @@
 package szobalovo;
 
-import java.io.IOException;
-import java.util.List;
 
-public interface IEngine {
+public interface IEngine extends IClient{
 	
 	/**
 	 * Functions for main menu
@@ -15,14 +13,14 @@ public interface IEngine {
 	 * Functions for start a new game
 	 * @throws IOException 
 	 */
-	void initNewGame() throws IOException;
-	List<String> getCloudWords();
+//	void initNewGame() throws IOException;
+//	List<String> getCloudWords();
 	
 	/**
 	 * Functions for controlling the game
 	 */
-	Character getNewLetter();
-	void insertCharacter(Character ch, int position, int wordIndex);
+//	Character getNewLetter();
+//	void insertCharacter(Character ch, int position, int wordIndex);
 	
 	
 	
