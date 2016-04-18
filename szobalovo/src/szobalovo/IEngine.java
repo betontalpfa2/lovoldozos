@@ -17,6 +17,7 @@ public interface IEngine extends IClient{
 	 */
 	void initNewGame() throws IOException;
 	List<String> getCloudWords();
+	void saveSettings(GameSettings gameSettings);
 	
 	/**
 	 * Functions for controlling the game

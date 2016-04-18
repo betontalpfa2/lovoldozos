@@ -38,6 +38,8 @@ public interface IClient {
 	 * @param position
 	 * @param wordIndex
 	 */
-	List<String> insertCharacter(Character ch, int position, int wordIndex);
+	void insertCharacter(Character ch, int position, int wordIndex);
+
+	GameSettings getSettings();
 	
 }

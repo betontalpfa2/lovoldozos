@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import javafx.scene.paint.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -186,7 +188,6 @@ public class MainMenuGUI {
 		{
 			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
 			PlayGround newPlay = new PlayGround(true);
-			
 			
 		}
 		finally

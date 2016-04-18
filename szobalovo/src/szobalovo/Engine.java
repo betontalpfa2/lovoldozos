@@ -193,6 +193,12 @@ public class Engine implements IEngine {
 		   return array;
 		}
 
+	@Override
+	public void connect(String hostname, int port) {
+		// TODO Auto-generated method stub
+		
+	}
+
 /*	public static void main(String[] args){
 		Engine engine = new Engine();
 		try {
