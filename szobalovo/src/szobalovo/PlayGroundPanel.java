@@ -62,8 +62,8 @@ public class PlayGroundPanel extends JPanel {
         
         // Rotation information
         double rotationRequired = Math.toRadians (CannonAngle);
-        double locationX = CannonWidth / 2 +30; // necessary to increase the area
-        double locationY = CannongHeight / 2 + 20;
+        double locationX = CannonWidth / 2 ; // necessary to increase the area
+        double locationY = CannongHeight / 2 ;
         AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         // Drawing the rotated image at the required drawing locations
