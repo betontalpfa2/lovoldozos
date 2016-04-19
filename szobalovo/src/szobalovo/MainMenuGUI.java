@@ -188,6 +188,7 @@ public class MainMenuGUI {
 		{
 			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
 			PlayGround newPlay = new PlayGround(true);
+			newPlay.CreatePlayGroundFrame();
 			
 		}
 		finally
