@@ -79,7 +79,7 @@ public class PlayGroundPanel extends JPanel {
 		 this.CannonAngle--;
 		 this.repaint();
 	 }
-	 //rotate right 1 degree
+	 //rotate right 1 degree 
 	 public void CannonRightRotate()
 	 {
 		 this.CannonAngle++;
