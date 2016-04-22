@@ -20,6 +20,7 @@ public class MainMenuGUI {
 
 	static Engine engine;
 	private JFrame frame;
+	private IClient mainclient;
 
 	/**
 	 * Launch the application.
@@ -29,7 +30,8 @@ public class MainMenuGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenuGUI window = new MainMenuGUI();
+					
+					MainMenuGUI window = new MainMenuGUI(engine);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +43,8 @@ public class MainMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public MainMenuGUI() {
+	public MainMenuGUI(IClient mainClient) {
+		this.mainclient = mainClient;
 		initialize();
 	}
 
@@ -189,6 +192,7 @@ public class MainMenuGUI {
 			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
 			PlayGround newPlay = new PlayGround(true);
 			newPlay.CreatePlayGroundFrame();
+
 			
 		}
 		finally

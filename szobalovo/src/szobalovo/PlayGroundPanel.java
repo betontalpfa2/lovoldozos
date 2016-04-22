@@ -16,28 +16,35 @@ import javax.swing.*;
 public class PlayGroundPanel extends JPanel {
 
 	public static int CannonWidth  = 124; // in px
-	public static int CannongHeight  = 162; // in px
+	public static int CannongHeight  = 160; // in px
 	private static final long serialVersionUID = 1L;
 	BufferedImage cannonimage, backgroundimage;
 	// the koordinates of the cannon
 	int cannonCenterXKoord = 0;
     int cannonCenterYKoord = 0;
-    public int CannonAngle = 60;
+    public int CannonAngle = 0;
+    private boolean showBullet = false;
+    private boolean panelshowing = true;
+    private int bullXpos = 40, bullYPos = 200;
 	public PlayGroundPanel()
 	{
 		//this.setBackground(Color.green);
 		// set the cannon picture
 		//set the backgrounf image
 				try {
-					cannonimage = ImageIO.read(getClass().getResource("/cannon.png"));
+					cannonimage = ImageIO.read(getClass().getResource("/cannonl.png"));
 					backgroundimage = ImageIO.read(getClass().getResource("/PlayGroundbackground.jpg"));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				JLabel lab = new JLabel("bull");
+				//lab.setBounds(25, 27, 40, 40);
+				this.add(lab);
 				MyKeyListener myKeyList = new MyKeyListener(this);
 				addKeyListener(myKeyList);
 				setFocusable(true);
+			
 		
 	}
 
@@ -45,8 +52,7 @@ public class PlayGroundPanel extends JPanel {
 	    public void paint(Graphics g) {
 		// location of the cannon. At the bottom of the panel in the middle
 	        cannonCenterXKoord = this.getWidth()/2 - (CannonWidth/2) ;
-	        System.out.println(this.getWidth());
-	        cannonCenterYKoord = this.getHeight()-10 - CannongHeight;
+	        cannonCenterYKoord = this.getHeight()+10 - CannongHeight;
 	        // if at least one koordinate is less then 0, the both koordinates are 0
 	        if(cannonCenterXKoord<0 || cannonCenterYKoord<0)
 	        {
@@ -68,7 +74,24 @@ public class PlayGroundPanel extends JPanel {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         // Drawing the rotated image at the required drawing locations
         g2d.drawImage(op.filter(cannonimage, null), cannonCenterXKoord, cannonCenterYKoord, null);
-        
+        if(showBullet)
+        {
+        	bullXpos=this.getWidth()/2;
+	        Graphics2D bull = (Graphics2D) g;
+	        bull.fillOval(bullXpos, bullYPos, 10, 10);
+	       // panelshowing=false;
+	        bullYPos = bullYPos-50;
+        try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        if(bullYPos>51)
+        {
+        this.repaint();
+        }
+        }
 
 	 }
 	 
@@ -85,12 +108,46 @@ public class PlayGroundPanel extends JPanel {
 		 this.CannonAngle++;
 		 this.repaint();
 	 }
+	
+	 // function to shoot a bullet
+	 public void ShootABullet()
+	 {
+		/*JLabel lab = new JLabel("bull");
+		lab.setBounds(25, 27, 40, 40);
+		
+		this.add(lab);
+		this.repaint();
+		this.setComponentZOrder(lab, 0);
+		this.repaint();
+		System.out.println(this.getComponentZOrder(lab));*/
+		 this.showBullet = true;
+		 /*while(bullYPos>50)
+		 {
+			 panelshowing = true;
+			 bullYPos = bullYPos-5;
+			 this.repaint();
+			 while(panelshowing)
+			 {
+				 try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			 
+			 }
+		 }*/
+		 System.out.println(1);
+		 this.repaint();
+		 System.out.println(2);
+	 }
 	 
 	  public class MyKeyListener implements KeyListener {
 		  PlayGroundPanel GameClass = null;
 			public MyKeyListener(PlayGroundPanel gameclass)
 			{
 				this.GameClass = gameclass;	
+				
 				
 			}
 			
@@ -111,6 +168,12 @@ public class PlayGroundPanel extends JPanel {
 				{
 					//GameClass.MessageBox("Right Button");
 					GameClass.CannonRightRotate();
+					//JOptionPane.showMessageDialog(null,"Right");
+				}
+				if(KeyEvent.getKeyText(e.getKeyCode()) == "Shift" && GameClass != null)
+				{
+					//GameClass.MessageBox("Right Button");
+					GameClass.ShootABullet();
 					//JOptionPane.showMessageDialog(null,"Right");
 				}
 				
