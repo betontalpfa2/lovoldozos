@@ -1,14 +1,11 @@
 package szobalovo;
 
-import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import javafx.scene.paint.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,9 +15,9 @@ import java.awt.event.MouseEvent;
 
 public class MainMenuGUI {
 
-	static Engine engine;
+//	static Engine engine;
 	private JFrame frame;
-	private IClient mainclient;
+	IClient mainclient;
 
 	/**
 	 * Launch the application.
@@ -213,7 +210,7 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			new SettingsGUI();
+			new SettingsGUI(mainclient);
 			
 		}
 		finally

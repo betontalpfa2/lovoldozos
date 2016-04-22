@@ -3,9 +3,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -24,7 +21,6 @@ public class PlayGroundPanel extends JPanel {
     int cannonCenterYKoord = 0;
     public int CannonAngle = 0;
     private boolean showBullet = false;
-    private boolean panelshowing = true;
     private int bullXpos = 0, bullYPos = 0, bullDeld = 20;
     // if the bullet is reach the end of the playground necesary to inverse the direction of the X koord
     private int IsXkoordAngle = 0;

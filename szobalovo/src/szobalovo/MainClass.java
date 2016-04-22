@@ -15,7 +15,7 @@ public class MainClass {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		MainMenuGUI window = new MainMenuGUI(engine);
+		new MainMenuGUI(engine);
 	}
 
 }

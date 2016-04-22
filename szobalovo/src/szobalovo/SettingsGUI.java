@@ -30,11 +30,13 @@ public class SettingsGUI {
 	private int maxGameTime = 5;
 	private int minGameTime = 1;
 	JComboBox<Languages> selectLanguage;
+	IClient mainclient;
 
 	/**
 	 * Create the application.
 	 */
-	public SettingsGUI() {
+	public SettingsGUI(IClient mainclient) {
+		this.mainclient = mainclient;
 		initialize();
 		frame.setVisible(true);
 		
@@ -61,8 +63,7 @@ public class SettingsGUI {
 		 */
 		playerName = new JTextField();
 		playerName.setHorizontalAlignment(SwingConstants.CENTER);
-		//playerName.setText(settings.playerName);
-		playerName.setText("");
+		playerName.setText(mainclient.getSettings().playerName);
 		playerName.setBounds(170, 54, 128, 18);
 		frame.getContentPane().add(playerName);
 		playerName.setColumns(10);
@@ -262,7 +263,9 @@ public class SettingsGUI {
 	{
 		try
 		{
-			GameSettings settings = MainMenuGUI.engine.getSettings();
+
+			GameSettings settings = mainclient.getSettings();
+//			GameSettings settings = MainMenuGUI.engine.getSettings();
 			settings.playerName = playerName.getText();
 			settings.language = (Languages)(selectLanguage.getSelectedItem());
 			
