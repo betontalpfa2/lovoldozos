@@ -44,7 +44,7 @@ public class SettingsGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		GameSettings settings = MainMenuGUI.engine.getSettings();
+		//GameSettings settings = MainMenuGUI.engine.getSettings();
 		frame = new JFrame();
 		Border GreyBorder = LineBorder.createGrayLineBorder();
 		frame.setBounds(100, 100, 405, 419);
@@ -61,7 +61,8 @@ public class SettingsGUI {
 		 */
 		playerName = new JTextField();
 		playerName.setHorizontalAlignment(SwingConstants.CENTER);
-		playerName.setText(settings.playerName);
+		//playerName.setText(settings.playerName);
+		playerName.setText("");
 		playerName.setBounds(170, 54, 128, 18);
 		frame.getContentPane().add(playerName);
 		playerName.setColumns(10);
@@ -189,7 +190,8 @@ public class SettingsGUI {
 		 */
 		selectLanguage = new JComboBox<Languages>(Languages.values());
 		selectLanguage.setBounds(74, 195, 134, 20);
-		selectLanguage.setSelectedItem(settings.language);
+		//selectLanguage.setSelectedItem(settings.language);
+		selectLanguage.setSelectedItem(possibleLanguages);
 		frame.getContentPane().add(selectLanguage);
 
 		/**

@@ -25,20 +25,19 @@ public class MainMenuGUI {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		engine = new Engine();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					
-					MainMenuGUI window = new MainMenuGUI(engine);
-					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
@@ -46,6 +45,7 @@ public class MainMenuGUI {
 	public MainMenuGUI(IClient mainClient) {
 		this.mainclient = mainClient;
 		initialize();
+		this.frame.setVisible(true);
 	}
 
 	/**
@@ -190,7 +190,7 @@ public class MainMenuGUI {
 		try
 		{
 			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
-			PlayGround newPlay = new PlayGround(true);
+			PlayGround newPlay = new PlayGround(true, mainclient);
 			newPlay.CreatePlayGroundFrame();
 
 			

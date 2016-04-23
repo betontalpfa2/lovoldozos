@@ -25,8 +25,18 @@ public class PlayGroundPanel extends JPanel {
     public int CannonAngle = 0;
     private boolean showBullet = false;
     private boolean panelshowing = true;
-    private int bullXpos = 40, bullYPos = 200;
-	public PlayGroundPanel()
+    private int bullXpos = 0, bullYPos = 0, bullDeld = 20;
+    // if the bullet is reach the end of the playground necesary to inverse the direction of the X koord
+    private int IsXkoordAngle = 0;
+    // instance of the frame class
+    PlayGround playG;
+    // string to store the selected character
+    private String currBullChar = "%";
+    // size of the shooted character
+    private int ShootedCharSize = 16;
+    //deflection of the cannon per clickk
+    private int cannonDeflection = 2;
+	public PlayGroundPanel(PlayGround playG)
 	{
 		//this.setBackground(Color.green);
 		// set the cannon picture
@@ -38,9 +48,7 @@ public class PlayGroundPanel extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				JLabel lab = new JLabel("bull");
-				//lab.setBounds(25, 27, 40, 40);
-				this.add(lab);
+				this.playG = playG;
 				MyKeyListener myKeyList = new MyKeyListener(this);
 				addKeyListener(myKeyList);
 				setFocusable(true);
@@ -74,23 +82,116 @@ public class PlayGroundPanel extends JPanel {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         // Drawing the rotated image at the required drawing locations
         g2d.drawImage(op.filter(cannonimage, null), cannonCenterXKoord, cannonCenterYKoord, null);
+        // show the bullet
         if(showBullet)
         {
-        	bullXpos=this.getWidth()/2;
+        	double XKoordAngl = Math.toRadians (IsXkoordAngle);
+        	bullXpos = bullXpos + (int)(bullDeld*Math.sin(XKoordAngl));
+        	if(bullXpos <5 || bullXpos >this.getWidth()-5)
+        	{
+        		IsXkoordAngle = IsXkoordAngle*-1;
+        	}
+        	//System.out.println(bullYPos + "  elotte   szog  " + rotationRequired);
+        	bullYPos = bullYPos - (int)(bullDeld*Math.cos(rotationRequired));
+        	//System.out.println(bullYPos + "  utana");
 	        Graphics2D bull = (Graphics2D) g;
-	        bull.fillOval(bullXpos, bullYPos, 10, 10);
+	        // shoot the selected character
+	        bull.setFont(new Font( "SansSerif", Font.BOLD, ShootedCharSize));
+	        bull.drawString(currBullChar, bullXpos, bullYPos);
+	        //shoot an oval bullet
+	        //bull.fillOval(bullXpos, bullYPos, 10, 10);
 	       // panelshowing=false;
-	        bullYPos = bullYPos-50;
+	       // bullYPos = bullYPos-50;
         try {
-			Thread.sleep(100);
+			Thread.sleep(20);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        if(bullYPos>51)
+        if(bullYPos<290 && bullYPos>270)
         {
-        this.repaint();
+        	if(playG.checkSlammingBullet(4, bullXpos))
+        	{
+        	//stop the bullet
+        	showBullet = false;
+        	playG.changeEnteredChar(4, bullXpos);
+        	this.repaint();
+        	}
+        	else
+        	{
+        		this.repaint();
+        	}
         }
+        else if(bullYPos<240 && bullYPos>220)
+        {
+        	if(playG.checkSlammingBullet(3, bullXpos))
+        	{
+        	//stop the bullet
+        	showBullet = false;
+        	playG.changeEnteredChar(3, bullXpos);
+        	this.repaint();
+        	}
+        	else
+        	{
+        		this.repaint();
+        	}
+        }
+        else if(bullYPos<190 && bullYPos>170)
+        {
+        	if(playG.checkSlammingBullet(2, bullXpos))
+        	{
+        	//stop the bullet
+        	showBullet = false;
+        	playG.changeEnteredChar(2, bullXpos);
+        	this.repaint();
+        	}
+        	else
+        	{
+        		this.repaint();
+        	}
+        }
+        else  if(bullYPos<140 && bullYPos>120)
+        {
+        	if(playG.checkSlammingBullet(1, bullXpos))
+        	{
+        	//stop the bullet
+        	showBullet = false;
+        	playG.changeEnteredChar(1, bullXpos);
+        	this.repaint();
+        	}
+        	else
+        	{
+        		this.repaint();
+        	}
+        }
+        else if(bullYPos<90 && bullYPos>70)
+        {
+        	if(playG.checkSlammingBullet(0, bullXpos))
+        	{
+        	//stop the bullet
+        	showBullet = false;
+        	playG.changeEnteredChar(0, bullXpos);
+        	this.repaint();
+        	}
+        	else
+        	{
+        		this.repaint();
+        	}
+        }
+	    
+        else if(bullYPos>50)
+	        {
+	        	this.repaint();
+	        	//System.out.println(bullYPos);
+	        }
+	    else
+	        {
+	        	showBullet = false;
+	        	this.repaint();
+	        	
+	        }
+        
+        
         }
 
 	 }
@@ -98,48 +199,36 @@ public class PlayGroundPanel extends JPanel {
 	 // functions which are responsible the rotate of the cannon
 	 //rotate left 1 degree
 	 public void CannonLeftRotate()
+	 { if(CannonAngle> -(89-cannonDeflection))
 	 {
-		 this.CannonAngle--;
+		 this.CannonAngle =this.CannonAngle - cannonDeflection ;
 		 this.repaint();
+	 }
 	 }
 	 //rotate right 1 degree 
 	 public void CannonRightRotate()
 	 {
-		 this.CannonAngle++;
+		 if(CannonAngle< 89-cannonDeflection)
+		 {
+		 this.CannonAngle=this.CannonAngle + cannonDeflection ;
 		 this.repaint();
+		 }
 	 }
 	
 	 // function to shoot a bullet
 	 public void ShootABullet()
 	 {
-		/*JLabel lab = new JLabel("bull");
-		lab.setBounds(25, 27, 40, 40);
-		
-		this.add(lab);
-		this.repaint();
-		this.setComponentZOrder(lab, 0);
-		this.repaint();
-		System.out.println(this.getComponentZOrder(lab));*/
-		 this.showBullet = true;
-		 /*while(bullYPos>50)
+		 if(!showBullet)
 		 {
-			 panelshowing = true;
-			 bullYPos = bullYPos-5;
-			 this.repaint();
-			 while(panelshowing)
-			 {
-				 try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			 
-			 }
-		 }*/
-		 System.out.println(1);
-		 this.repaint();
-		 System.out.println(2);
+			 // get the currentlx selected character to shoot it
+			 this.currBullChar= playG.getCurrentCharToShoot();
+			 // the initial value of the bullet
+			bullXpos=this.getWidth()/2 - 5; // need a little offset
+	        bullYPos = this.getHeight() - CannongHeight/2 + 10;
+	        IsXkoordAngle  = CannonAngle;
+	        this.showBullet = true;
+	        this.repaint();
+		 }
 	 }
 	 
 	  public class MyKeyListener implements KeyListener {
@@ -170,13 +259,24 @@ public class PlayGroundPanel extends JPanel {
 					GameClass.CannonRightRotate();
 					//JOptionPane.showMessageDialog(null,"Right");
 				}
-				if(KeyEvent.getKeyText(e.getKeyCode()) == "Shift" && GameClass != null)
+				if(KeyEvent.getKeyText(e.getKeyCode()) == "Space" && GameClass != null)
 				{
-					//GameClass.MessageBox("Right Button");
+					//playG.Overwrite("Apfl");
 					GameClass.ShootABullet();
 					//JOptionPane.showMessageDialog(null,"Right");
 				}
-				
+				if(KeyEvent.getKeyText(e.getKeyCode()) == "Up" && GameClass != null)
+				{
+					 playG.refCharList();
+					
+
+				}
+				if(KeyEvent.getKeyText(e.getKeyCode()) == "Ctrl" && GameClass != null)
+				{
+					// playG.getWordsFromEngine();
+
+				}
+				//getWordsFromEngine
 				//exit
 				if(KeyEvent.getKeyText(e.getKeyCode()) == "Escape" && GameClass != null)
 				{

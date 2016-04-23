@@ -169,7 +169,7 @@ public class Engine implements IEngine {
 		
 		switch (gameSettings.language) {
 		case HUNGARIAN:
-			currentAlphabet = currentAlphabet + hunExtension;
+			currentAlphabet = currentAlphabet + hunExtension;// the spec karakterek nem jok nalam
 			break;
 
 		default:
