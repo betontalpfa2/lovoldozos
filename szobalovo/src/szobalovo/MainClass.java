@@ -15,7 +15,12 @@ public class MainClass {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		new MainMenuGUI(engine);
+		
+		// create the local engine(client)
+		LocalEngine localEngine = new LocalEngine(engine); 
+		// show the Menu
+		localEngine.startMenu();
+		
 	}
 
 }

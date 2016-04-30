@@ -18,6 +18,7 @@ public class MainMenuGUI {
 //	static Engine engine;
 	private JFrame frame;
 	IClient mainclient;
+	PlayerSettings playerSettings;
 
 	/**
 	 * Launch the application.
@@ -39,8 +40,9 @@ public class MainMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public MainMenuGUI(IClient mainClient) {
+	public MainMenuGUI(IClient mainClient, PlayerSettings PlaySett) {
 		this.mainclient = mainClient;
+		this.playerSettings = PlaySett;
 		initialize();
 		this.frame.setVisible(true);
 	}
@@ -187,7 +189,7 @@ public class MainMenuGUI {
 		try
 		{
 			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
-			PlayGround newPlay = new PlayGround(true, mainclient);
+			PlayGround newPlay = new PlayGround(true, mainclient, playerSettings);
 			newPlay.CreatePlayGroundFrame();
 
 			
@@ -210,7 +212,7 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			new SettingsGUI(mainclient);
+			new SettingsGUI(mainclient, playerSettings);
 			
 		}
 		finally

@@ -8,7 +8,8 @@ package szobalovo;
  */
 public class GameSettings {
 	public enum Languages {
-	    HUNGARIAN
+	    HUNGARIAN,
+	    ENGLISH
 	}
 
 	/**************************************************************************

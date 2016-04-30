@@ -57,7 +57,7 @@ public class PlayGround extends JPanel{
     int[][] wordmatrix = new int[5][30]; 
     
     
-	public PlayGround(boolean isVisible, IClient mainClient)
+	public PlayGround(boolean isVisible, IClient mainClient, PlayerSettings playerSettings)
 	{
 		this.mainClient = mainClient;
 		this.isVisible =isVisible;
