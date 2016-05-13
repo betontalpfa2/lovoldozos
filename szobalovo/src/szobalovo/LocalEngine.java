@@ -1,4 +1,4 @@
-package szobalovo;
+ package szobalovo;
 /*
  * this class represents the client
  * This is initialize the menus, the playerSettings and the playground

@@ -272,6 +272,8 @@ public class SettingsGUI {
 			settings.playerName = playerName.getText();
 			settings.language = (Languages)(selectLanguage.getSelectedItem());
 			
+			//System.out.println(selectLanguage.getSelectedItem());
+			
 		}
 		finally
 		{

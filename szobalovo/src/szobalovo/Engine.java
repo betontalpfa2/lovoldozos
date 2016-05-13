@@ -145,6 +145,7 @@ public class Engine implements IEngine {
 	private void readDictionaryWords() throws IOException{
 		dictionaryWords = new ArrayList<String>();
 		String fileName = gameSettings.language.toString().toLowerCase() + ".txt";
+		System.out.println(fileName);
 		String path = "resources/dictionaries/" + fileName;
 		InputStream is = Engine.class.getResourceAsStream(path);
 		assert is != null: "Cannot load resource file";
@@ -197,6 +198,20 @@ public class Engine implements IEngine {
 	public void connect(String hostname, int port) {
 		// TODO Auto-generated method stub
 		
+	}
+	//function to check the word from the gui
+	// the funcion get the wors as parameter from the gui, and it returns with true if the
+	//dictionaryWords list contains it, otherwise if returns with false;
+	public boolean checkword(String word)
+	{
+		if(dictionaryWords.contains(word))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 /*	public static void main(String[] args){

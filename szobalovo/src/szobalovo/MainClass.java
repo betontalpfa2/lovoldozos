@@ -1,6 +1,6 @@
 package szobalovo;
 
-import java.io.IOException;
+//import java.io.IOException;
 
 public class MainClass {
 
@@ -9,12 +9,12 @@ public class MainClass {
 	public static void main(String[] args) {
 
 		Engine engine = new Engine();
-		try {
+		/*try {
 			engine.initNewGame();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		// create the local engine(client)
 		LocalEngine localEngine = new LocalEngine(engine); 

@@ -158,7 +158,7 @@ public class PlayGround extends JPanel{
 	{
 	try
 	{
-		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		 Random r = new Random();
 		if(charsToShoot[0] == null)
 		{
@@ -214,7 +214,8 @@ public class PlayGround extends JPanel{
 			byte ptext[] = myWordList.get(i).getBytes();
 			String currLabText= "";
 			try {
-			 currLabText = new String(ptext, "UTF-8");
+				
+			 currLabText = new String(ptext, "UTF-8"); 
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -311,6 +312,7 @@ public class PlayGround extends JPanel{
 		int wordIndex = (int)Math.floor(wordmatrix[rowindex][calculatedColumIndex]/10)-1;
 		int charIndex = wordmatrix[rowindex][calculatedColumIndex]%10;
 		String currword = "";
+		boolean ishitted = false;
 		if(myWordList.size()>0)// if not empty the list
 		{
 			// get the word
@@ -319,11 +321,23 @@ public class PlayGround extends JPanel{
 			if(_CharPos == charIndex)
 			{
 				currword = currword.replace('_',currChar_6.getText().toCharArray()[0]);
+				ishitted = true;
 			}
 		}
-		if(currword != "" && wordLabelList.size()>0)
+		if(currword != "" && wordLabelList.size()>0 && ishitted)
 		{
-		 wordLabelList.get(wordIndex).setText(currword);
+			//checkword
+			
+		 wordLabelList.get(wordIndex).setText(currword /*"talal"*/);
+		 if(mainClient.checkword(currword))
+		 {
+			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.green, 2));	
+		 }
+		 else
+		 {
+			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.red, 2));
+		 }
+		 ishitted = false;
 		}
 		
 		

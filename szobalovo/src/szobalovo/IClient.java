@@ -41,5 +41,6 @@ public interface IClient {
 	void insertCharacter(Character ch, int position, int wordIndex);
 
 	GameSettings getSettings();
-	
+	// check the word, if it is appropriate the function returns with true otherwise with false
+	boolean checkword(String word);
 }

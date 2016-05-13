@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class MainMenuGUI {
 
@@ -189,6 +190,15 @@ public class MainMenuGUI {
 		try
 		{
 			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
+			//JOptionPane.showMessageDialog(null,mainclient.getSettings().language.toString());
+			
+				try {
+					mainclient.initNewGame();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
 			PlayGround newPlay = new PlayGround(true, mainclient, playerSettings);
 			newPlay.CreatePlayGroundFrame();
 
