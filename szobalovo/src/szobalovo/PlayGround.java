@@ -6,22 +6,31 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import java.awt.Toolkit;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import szobalovo.PlayGround;
 
 public class PlayGround extends JPanel{
 	IClient mainClient;
+	// playersetting class which stores the name of the player
+	PlayerSettings playerSettings;
 	private static int FrameWidth = 600;
 	private static int FrameHeight = 700;
 	boolean isVisible = false;
@@ -32,10 +41,24 @@ public class PlayGround extends JPanel{
     private JLayeredPane pglpane = new JLayeredPane();
     private JPanel marginPanel = new JPanel();
     private JPanel labPan_1 = new JPanel();
+    private JPanel UserNamePanel = new JPanel();
+    private JLabel UserName = new JLabel("username");
+    private JLabel SoldierPics = new JLabel("");
+    // for the timer and the scores
+    private JPanel TimeScorePanel = new JPanel();
+    private JLabel TimeLab = new JLabel("1");
+    private JLabel HittScLab = new JLabel("Great: 0");
+    private JLabel BadScLab = new JLabel("Bad: 0");
+    private JLabel MissScLab = new JLabel("Szumm: 0");
+    
+    // variable to store the time of the play. It is relevant for the gui. This information is from the Motor.
+    private int timeofPlay = 5;
+    private int timeofPlaysec = 0;
     JLabel wordLab_1= new JLabel("BNANA");
+    ReminderBeep rem;
     // the PlayGroundPanel contains the  
     private PlayGroundPanel pgpanel = new PlayGroundPanel(this);
-    //lis to contains the characters to shoot
+    //list to contains the characters to shoot
     String[] charsToShoot = new String[6];
     //labels to show the chars
     JLabel nextChar_1 = new JLabel("_");
@@ -45,7 +68,8 @@ public class PlayGround extends JPanel{
     JLabel nextChar_5 = new JLabel("_");
     JLabel currChar_6 = new JLabel("_");
     JPanel CharPanel = new JPanel();
-    
+    // to beep beep
+    Toolkit toolkit = Toolkit.getDefaultToolkit();
     // integer to store the margin width
     private int wordMargin = 20;
     private int charWidth = 20;
@@ -55,12 +79,15 @@ public class PlayGround extends JPanel{
     // one item of the matrixPl. 312 meaning: the third character of the 12th word. the index of the first character is 1!
     // the maximum number of rows is 5 and one the maximum wors length is 9.
     int[][] wordmatrix = new int[5][30]; 
+    //variables to stores the scores
+    private int hittedWords = 0;
+    private int badWords = 0;
     
-    
-	public PlayGround(boolean isVisible, IClient mainClient, PlayerSettings playerSettings)
+	public PlayGround(boolean isVisible, IClient mainClient, PlayerSettings PlayerSettings)
 	{
 		this.mainClient = mainClient;
 		this.isVisible =isVisible;
+		this.playerSettings = PlayerSettings;
 	}
 	public void CreatePlayGroundFrame()
 	{
@@ -81,8 +108,47 @@ public class PlayGround extends JPanel{
 		labPan_1.add(wordLab_1);*/
 		pglpane.add(marginPanel, new Integer(0), 0);
 		pglpane.add(pgpanel, new Integer(1), 0);
-		//pglpane.add(labPan_1, new Integer(2), 0);
+		//
+		String namepl = playerSettings.getPlayerName();
+		UserName.setText(namepl);
+		UserName.setFont(new Font(UserName.getFont().getName(), Font.BOLD, (int)(UserName.getFont().getSize()*2.3)));
+		UserName.setBounds(0, 0, namepl.length()*20,30);
+		UserNamePanel.setOpaque(false);
+		UserNamePanel.setBounds(10, 350, namepl.length()*20,200);
+		UserNamePanel.add(UserName);
+		Image img = new ImageIcon(this.getClass().getResource("/soldier.png")).getImage();
+		SoldierPics.setIcon(new ImageIcon(img.getScaledInstance(namepl.length()*20, 150, Image.SCALE_DEFAULT)));
+		SoldierPics.setBounds(0, 30, namepl.length()*20, 170);
+		UserNamePanel.add(SoldierPics);
+		pglpane.add(UserNamePanel, new Integer(3), 0);
+		
+		
+		//timer and scores:
+		timeofPlay = mainClient.getTimeofPlay();
+		TimeLab.setText("" + timeofPlay + ":" + timeofPlaysec );
+		TimeLab.setFont(new Font(TimeLab.getFont().getName(), Font.BOLD, (int)(TimeLab.getFont().getSize()*2.3)));
+		TimeLab.setBounds(10, 5, 100, 30);
+		TimeScorePanel.setBounds(FrameWidth-120, 350, 110, 150);
+		TimeScorePanel.setOpaque(false);
+		TimeScorePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		TimeScorePanel.setLayout(null);
+		HittScLab.setFont(new Font(HittScLab.getFont().getName(), Font.BOLD, (int)(HittScLab.getFont().getSize()*1.5)));
+		BadScLab.setFont(new Font(BadScLab.getFont().getName(), Font.BOLD, (int)(BadScLab.getFont().getSize()*1.5)));
+		MissScLab.setFont(new Font(MissScLab.getFont().getName(), Font.BOLD, (int)(MissScLab.getFont().getSize()*1.5)));
+		HittScLab.setBounds(10, 75, 100, 30);
+		BadScLab.setBounds(10, 110, 100, 30);
+		MissScLab.setBounds(10, 40, 100, 30);
+		Color myGreen = new Color(0, 153, 0);
+		HittScLab.setForeground(myGreen);
+		BadScLab.setForeground(Color.gray);
+		MissScLab.setForeground(Color.black);
+		TimeScorePanel.add(TimeLab);
+		TimeScorePanel.add(HittScLab);
+		TimeScorePanel.add(BadScLab);
+		TimeScorePanel.add(MissScLab);
 
+		pglpane.add(TimeScorePanel, new Integer(4), 0);
+		//pglpane.add(labPan_1, new Integer(2), 0);
 		pgframe.pack();
         pgframe.setVisible(true);
         this.DrawCharLabels();
@@ -91,7 +157,72 @@ public class PlayGround extends JPanel{
         //words
         this.getWordsFromEngine();
         
+        refreshScores();
+        rem = new ReminderBeep(1);
+        /*Timer timer;
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        timer = new Timer();
+	    timer.schedule(new RemindTask(), seconds * 1000);*/
+        
 	}
+	//
+	private void decreaseTimer()
+	{
+		boolean endofgame = false;
+		if(timeofPlaysec>0)
+		{
+		--timeofPlaysec;
+		}
+		else
+		{
+		// the min is already 0,  necessary to decrease the min
+			//timeofPlaysec = 59;
+			if(timeofPlay >0)
+			{
+			--timeofPlay;
+			}
+			else
+			{
+				endofgame =true;
+				rem.CloseTimer();
+			// end of the game
+			}
+			timeofPlaysec = 59;
+		}
+	TimeLab.setText("" + timeofPlay + ":" + timeofPlaysec );
+	if(!endofgame)
+	{
+	 rem.timerAgain(1);
+	}
+	else
+	{
+		rem.CloseTimer();
+		EndofGame();
+	}
+	}
+	
+	//function to end the game
+	private void EndofGame()
+	{ 
+		/*JPanel endPanel = new JPanel();
+		JLabel endLabel  = new JLabel("");
+		endLabel.setBounds(0, 0, FrameWidth, FrameHeight);
+		Image img = new ImageIcon(this.getClass().getResource("/end.png")).getImage();
+		endLabel.setIcon(new ImageIcon(img.getScaledInstance(FrameWidth, FrameHeight, Image.SCALE_DEFAULT)));
+		endPanel.setBounds(0, 0, FrameWidth, FrameHeight);
+		endPanel.add(endLabel);*/
+		// save the scores
+		mainClient.addLastHittedScores(hittedWords);
+		mainClient.addHittedScores(hittedWords);
+		mainClient.addLastBadScores(badWords);
+		mainClient.addBadScores(badWords);
+		mainClient.addLastMissedScores(myWordList.size()-badWords - hittedWords);
+		mainClient.addMissedScores(myWordList.size()-badWords - hittedWords);
+		pgframe.setEnabled(false);
+		JOptionPane.showMessageDialog(null,"end of the game");
+		pgframe.setVisible(false);
+	}
+	
 	//function to draw the nextchar labels
 	private void DrawCharLabels()
 	{
@@ -150,6 +281,29 @@ public class PlayGround extends JPanel{
 		 currChar_6.setBounds(FrameWidth/2-15, 20, 30,30);
 		 
 		 pglpane.add(CharPanel, new Integer(3), 0);
+	}
+	
+	//function to refresh the scores
+	private void refreshScores()
+	{
+		try
+		{
+			HittScLab.setText("Great: "+ hittedWords);
+		    BadScLab.setText("Bad: " + badWords);
+		    int missw = myWordList.size() - hittedWords - badWords;
+		     MissScLab.setText("Word: " + missw);
+		     if(missw == 0)
+		     {
+		    	 // end of the game
+		    	 rem.CloseTimer();
+		    	 EndofGame();
+		     }
+		}
+		catch(Exception e)
+		{
+			// do nothing
+		}
+	
 	}
 
 	// function to fulfill the charsToShoot list with random chars, or shift it and add a new random character 
@@ -277,8 +431,12 @@ public class PlayGround extends JPanel{
 	//
 	//function to detect the slamming bullet
 	//row index parameter selects the actual row of matrix
-	// it return true if the bullet hits a word otherwise false
-	public boolean checkSlammingBullet(int rowindex, int Xkoord)
+	// it return
+	/* 0 = if the number =0 -> 
+	 * 1 = if the number >0 -> valid textbox
+	 * 2 = if the number <0 -> frozen textbox
+	 */
+	public int checkSlammingBullet(int rowindex, int Xkoord)
 	{
 	try
 	{
@@ -287,16 +445,20 @@ public class PlayGround extends JPanel{
 		int calculatedColumIndex = (int)Math.floor(Xkoord/20);
 		if(wordmatrix[rowindex][calculatedColumIndex]>0)
 		{
-		return true;
+			return 1;
 		}
-		else
+		else if(wordmatrix[rowindex][calculatedColumIndex] < 0)
 		{
-			return false;
+			return 2;
+		}
+		else // if the number is 0
+		{
+			return 0;
 		}
 	}
 	catch(Exception e)
 	{
-		return false;
+		return 1;
 	}
 	
 	}
@@ -311,31 +473,60 @@ public class PlayGround extends JPanel{
 		int calculatedColumIndex = (int)Math.floor(Xkoord/20);
 		int wordIndex = (int)Math.floor(wordmatrix[rowindex][calculatedColumIndex]/10)-1;
 		int charIndex = wordmatrix[rowindex][calculatedColumIndex]%10;
+		System.out.println("sor " + rowindex + "   szo:  " +  wordIndex + "  betu:  " + charIndex);
 		String currword = "";
 		boolean ishitted = false;
 		if(myWordList.size()>0)// if not empty the list
 		{
 			// get the word
 			currword = myWordList.get(wordIndex);
-			int _CharPos = currword.indexOf('_');
-			if(_CharPos == charIndex)
+			int _CharPos = currword.indexOf('_') + 1;
+			if(Math.abs((float)(_CharPos - charIndex)) <=1)
 			{
 				currword = currword.replace('_',currChar_6.getText().toCharArray()[0]);
 				ishitted = true;
 			}
 		}
+		// if the ishitted is true always, then the game will harder
 		if(currword != "" && wordLabelList.size()>0 && ishitted)
 		{
 			//checkword
 			
-		 wordLabelList.get(wordIndex).setText(currword /*"talal"*/);
+		 wordLabelList.get(wordIndex).setText(currword);
 		 if(mainClient.checkword(currword))
 		 {
-			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.green, 2));	
+			 // write o into the matrix to the appropriate places
+			 //necessary to find the element which indexes is same as the founded in the matrix
+			 for(int index = 0; index< 30; index ++)
+			 {
+				 if((int)Math.floor(wordmatrix[rowindex][index]/10)-1 == wordIndex)
+				 {
+					 wordmatrix[rowindex][index] = 0;// get out the word of the matrix
+				 }
+			 }
+			 // add new score
+			 hittedWords ++;
+			 refreshScores();
+			 toolkit.beep();
+			 Color mygreen = new Color(172, 205, 175);
+			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.green, 0));
+			 wordLabelList.get(wordIndex).setForeground(mygreen);
 		 }
 		 else
 		 {
-			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.red, 2));
+			 for(int index = 0; index< 30; index ++)
+			 {
+				 if((int)Math.floor(wordmatrix[rowindex][index]/10)-1 == wordIndex)
+				 {
+					 wordmatrix[rowindex][index] = -1;// get out the word of the matrix
+				 }
+			 }
+			 //drawmatrix();
+			 badWords++;
+			 refreshScores();
+			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.gray, 3));
+			 wordLabelList.get(wordIndex).setOpaque(true);
+			 wordLabelList.get(wordIndex).setBackground(Color.gray);
 		 }
 		 ishitted = false;
 		}
@@ -345,6 +536,7 @@ public class PlayGround extends JPanel{
 	catch(Exception e)
 	{
 		//do nothing
+		//JOptionPane.showMessageDialog(null,e.getMessage() + "  errrorrr");
 	}
 	
 	}
@@ -373,6 +565,35 @@ public class PlayGround extends JPanel{
 			System.out.println(row);
 		}
 	}
+
 	
-  
+  //timer
+	public class ReminderBeep {
+		  Toolkit toolkit;
+
+		  Timer timer;
+
+		  public ReminderBeep(int seconds) {
+		    toolkit = Toolkit.getDefaultToolkit();
+		    timer = new Timer();
+		    timer.schedule(new RemindTask(), seconds * 1000);
+		  }
+		  public void timerAgain(int seconds)
+		  {
+			  timer.schedule(new RemindTask(), seconds * 1000);
+		  
+		  }
+		  public void CloseTimer()
+		  {
+		  timer.cancel();
+		  }
+		  class RemindTask extends TimerTask {
+		    public void run() {
+		      //System.out.println("Time's up!");
+		      //toolkit.beep();
+		      //timer.cancel(); //Not necessary because we call System.exit
+		      decreaseTimer();
+		    }
+		  }
+	}
 }

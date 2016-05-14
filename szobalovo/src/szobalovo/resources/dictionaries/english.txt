@@ -12,9 +12,12 @@ health
 system
 computer
 meat
+live
 year
+oasis
 thanks
 music
+said
 person
 reading
 method

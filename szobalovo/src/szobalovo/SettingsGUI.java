@@ -271,7 +271,8 @@ public class SettingsGUI {
 //			GameSettings settings = MainMenuGUI.engine.getSettings();
 			settings.playerName = playerName.getText();
 			settings.language = (Languages)(selectLanguage.getSelectedItem());
-			
+			settings.playTime = Integer.parseInt(timeOfPlay.getText());
+			playerSettings.setPlayerName(playerName.getText());
 			//System.out.println(selectLanguage.getSelectedItem());
 			
 		}

@@ -50,6 +50,36 @@ public class GameSettings {
 	 */
 	public Languages language;
 	
+	/*
+	 *Time of the play. Min 1 max 5
+	 */
+	public int playTime;
+	/*
+	 * number of the hitted words
+	 */
+	public int playerHittedScore;
+	/*
+	 * number of the badly hitted words
+	 */
+	public int playerBadScore;
+	/*
+	 * number of the missed words
+	 */
+	public int playerMissedScore;
+	
+	// scores of the last game:
+	/*
+	 * number of the hitted words
+	 */
+	public int playerLastHittedScore;
+	/*
+	 * number of the badly hitted words
+	 */
+	public int playerLastBadScore;
+	/*
+	 * number of the missed words
+	 */
+	public int playerLastMissedScore;
 	/**************************************************************************
 	 * GENERATOR SETTINGS 
 	 **************************************************************************/
@@ -156,13 +186,20 @@ public class GameSettings {
 		minWordLength = 2;
 		maxWordLength = 6;
 		
-		nOfgeneratedWords = 10;
+		nOfgeneratedWords = 20;
 		
 		nOfPregeneratedLetters = 5;
-		
+		          
 		isBordersWalls = true;
 		
 		showCursor = true;
+		playTime = 5;
+		playerHittedScore = 0;
+		playerBadScore = 0;
+		playerMissedScore = 0;
+		playerLastHittedScore = 0;
+		playerLastBadScore = 0;
+		playerLastMissedScore = 0;
 		
 		// TODO
 		/*rotateCannonRightKey;

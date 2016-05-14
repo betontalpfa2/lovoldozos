@@ -16,6 +16,7 @@ public class PlayGroundPanel extends JPanel {
 	public static int CannongHeight  = 160; // in px
 	private static final long serialVersionUID = 1L;
 	BufferedImage cannonimage, backgroundimage;
+	Toolkit toolkit = Toolkit.getDefaultToolkit();
 	// the koordinates of the cannon
 	int cannonCenterXKoord = 0;
     int cannonCenterYKoord = 0;
@@ -104,13 +105,20 @@ public class PlayGroundPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        // necessary to check the y koordinates
         if(bullYPos<290 && bullYPos>270)
         {
-        	if(playG.checkSlammingBullet(4, bullXpos))
+        	int YposState = playG.checkSlammingBullet(4, bullXpos);
+        
+        	if(YposState>0)
         	{
         	//stop the bullet
         	showBullet = false;
-        	playG.changeEnteredChar(4, bullXpos);
+        	if(YposState <2)
+        	{
+        		playG.changeEnteredChar(4, bullXpos);
+        	}
         	this.repaint();
         	}
         	else
@@ -120,11 +128,16 @@ public class PlayGroundPanel extends JPanel {
         }
         else if(bullYPos<240 && bullYPos>220)
         {
-        	if(playG.checkSlammingBullet(3, bullXpos))
+        	
+        	int YposState = playG.checkSlammingBullet(3, bullXpos);
+        	if(YposState>0)
         	{
         	//stop the bullet
         	showBullet = false;
-        	playG.changeEnteredChar(3, bullXpos);
+        	if(YposState <2)
+        	{
+        		playG.changeEnteredChar(3, bullXpos);
+        	}
         	this.repaint();
         	}
         	else
@@ -134,11 +147,15 @@ public class PlayGroundPanel extends JPanel {
         }
         else if(bullYPos<190 && bullYPos>170)
         {
-        	if(playG.checkSlammingBullet(2, bullXpos))
+        	int YposState = playG.checkSlammingBullet(2, bullXpos);
+        	if(YposState>0)
         	{
         	//stop the bullet
         	showBullet = false;
-        	playG.changeEnteredChar(2, bullXpos);
+        	if(YposState<2)
+        	{
+        		playG.changeEnteredChar(2, bullXpos);
+        	}
         	this.repaint();
         	}
         	else
@@ -148,11 +165,15 @@ public class PlayGroundPanel extends JPanel {
         }
         else  if(bullYPos<140 && bullYPos>120)
         {
-        	if(playG.checkSlammingBullet(1, bullXpos))
+        	int YposState = playG.checkSlammingBullet(1, bullXpos);
+        	if(YposState>0)
         	{
         	//stop the bullet
         	showBullet = false;
-        	playG.changeEnteredChar(1, bullXpos);
+        	if(YposState<2)
+        	{
+        		playG.changeEnteredChar(1, bullXpos);
+        	}
         	this.repaint();
         	}
         	else
@@ -162,11 +183,15 @@ public class PlayGroundPanel extends JPanel {
         }
         else if(bullYPos<90 && bullYPos>70)
         {
-        	if(playG.checkSlammingBullet(0, bullXpos))
+        	int YposState = playG.checkSlammingBullet(0, bullXpos);
+        	if(YposState>0)
         	{
         	//stop the bullet
         	showBullet = false;
-        	playG.changeEnteredChar(0, bullXpos);
+        	if(YposState<2)
+        	{
+        		playG.changeEnteredChar(0, bullXpos);
+        	}
         	this.repaint();
         	}
         	else

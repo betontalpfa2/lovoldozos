@@ -43,4 +43,33 @@ public interface IClient {
 	GameSettings getSettings();
 	// check the word, if it is appropriate the function returns with true otherwise with false
 	boolean checkword(String word);
+	//fuction to get the time of play
+	int getTimeofPlay();
+	
+	//scores
+	 int getHittedScores();
+	
+	 int getBadScores();
+	
+	 int getMissedScores();
+	
+	 void addHittedScores(int newhit);
+	
+	 void addBadScores(int newbad);
+	
+	 void addMissedScores( int newmiss);
+	
+	//fucntion to get and set the scores related to the last game
+	 int getLastHittedScores();
+	
+	 int getLastBadScores();
+	
+	 int getLastMissedScores();
+	
+	 void addLastHittedScores(int newhit);
+	
+	 void addLastBadScores(int newbad);
+
+	 void addLastMissedScores( int newmiss);
+
 }

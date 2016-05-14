@@ -15,7 +15,7 @@ public class Engine implements IEngine {
 	List<String> wordCloud;
 	List<String> dictionaryWords;
 	String currentAlphabet;	
-
+	
 	public Engine() {
 		gameSettings = new GameSettings();
 		gameSettings.setDefaults();
@@ -201,7 +201,7 @@ public class Engine implements IEngine {
 	}
 	//function to check the word from the gui
 	// the funcion get the wors as parameter from the gui, and it returns with true if the
-	//dictionaryWords list contains it, otherwise if returns with false;
+	//dictionaryWords list contains it, ot
 	public boolean checkword(String word)
 	{
 		if(dictionaryWords.contains(word))
@@ -214,6 +214,69 @@ public class Engine implements IEngine {
 		}
 	}
 
+	//function to add the time of the play in min
+	public int getTimeofPlay()
+	{
+		return gameSettings.playTime;
+	}
+	
+	
+	/*Score handling
+	 * there are two possibilies: query the already existing scores, and add new scores to the results
+	 * playerHittedScore = 0;
+		playerBadScore = 0;
+		playerMissedScore = 0;
+	 */
+	public int getHittedScores()
+	{
+	 return gameSettings.playerHittedScore;
+	}
+	public int getBadScores()
+	{
+	 return gameSettings.playerBadScore;
+	}
+	public int getMissedScores()
+	{
+	 return gameSettings.playerMissedScore;
+	}
+	public void addHittedScores(int newhit)
+	{
+	  gameSettings.playerHittedScore += newhit;
+	}
+	public void addBadScores(int newbad)
+	{
+	  gameSettings.playerBadScore += newbad;
+	}
+	public void addMissedScores( int newmiss)
+	{
+	  gameSettings.playerMissedScore += newmiss;
+	}
+	//fucntion to get and set the scores related to the last game
+	public int getLastHittedScores()
+	{
+	 return gameSettings.playerLastHittedScore;
+	}
+	public int getLastBadScores()
+	{
+	 return gameSettings.playerLastBadScore;
+	}
+	public int getLastMissedScores()
+	{
+	 return gameSettings.playerLastMissedScore;
+	}
+	public void addLastHittedScores(int newhit)
+	{
+	  gameSettings.playerLastHittedScore = newhit;
+	}
+	public void addLastBadScores(int newbad)
+	{
+	  gameSettings.playerLastBadScore = newbad;
+	}
+	public void addLastMissedScores( int newmiss)
+	{
+	  gameSettings.playerLastMissedScore = newmiss;
+	}
+	
 /*	public static void main(String[] args){
 		Engine engine = new Engine();
 		try {
