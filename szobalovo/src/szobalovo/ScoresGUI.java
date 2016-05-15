@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import szobalovo.PlayGroundPanel.Sound;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -52,6 +55,8 @@ public class ScoresGUI {
 	}
 	public void showframe()
 	{
+		//sound
+		Sound.Applause.play();
 		this.frame.setVisible(true);
 	}
 	/**
@@ -130,7 +135,7 @@ public class ScoresGUI {
 	{
 		try{
 		allremain.setText("" +mainClient.getMissedScores());
-		allgreat.setText("" +mainClient.getLastHittedScores());
+		allgreat.setText("" +mainClient.getHittedScores());
 		allbad.setText("" +mainClient.getBadScores());
 		lastremain.setText("" +mainClient.getLastMissedScores());
 		lastbad.setText("" +mainClient.getLastBadScores());

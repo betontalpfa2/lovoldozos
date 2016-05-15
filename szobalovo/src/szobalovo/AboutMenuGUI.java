@@ -9,6 +9,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import szobalovo.PlayGroundPanel.Sound;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -22,6 +24,8 @@ public class AboutMenuGUI {
 	 * Create the application.
 	 */
 	public AboutMenuGUI() {
+		Sound.Abc.stop();
+		Sound.Cancan.loop();
 		initialize();
 		this.frame.setVisible(true);
 	}
@@ -41,6 +45,8 @@ public class AboutMenuGUI {
 		ExitAboutLabButt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Sound.Cancan.stop();
+				Sound.Abc.loop();
 				frame.setVisible(false);
 			}
 			Border defaultborder = ExitAboutLabButt.getBorder();
@@ -55,6 +61,12 @@ public class AboutMenuGUI {
 		});
 		ExitAboutLabButt.setBounds(338, 264, 63, 22);
 		Image img = new ImageIcon(this.getClass().getResource("/ExitButton.png")).getImage();
+		
+		JLabel canlab = new JLabel("");
+		canlab.setBounds(235, 52, 199, 182);
+		Image imgcan = new ImageIcon(this.getClass().getResource("/cancang.gif")).getImage();
+		canlab.setIcon(new ImageIcon(imgcan.getScaledInstance(199, 182, Image.SCALE_DEFAULT)));
+		frame.getContentPane().add(canlab);
 		ExitAboutLabButt.setIcon(new ImageIcon(img.getScaledInstance(63, 22, Image.SCALE_DEFAULT)));
 		frame.getContentPane().add(ExitAboutLabButt);
 		
@@ -63,5 +75,4 @@ public class AboutMenuGUI {
 		lblAboutTheAuthors.setBounds(25, 31, 323, 222);
 		frame.getContentPane().add(lblAboutTheAuthors);
 	}
-
 }

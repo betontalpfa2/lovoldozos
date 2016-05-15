@@ -2,12 +2,16 @@ package szobalovo;
 
 
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +30,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import szobalovo.PlayGround;
+import szobalovo.PlayGroundPanel.Sound;
 
 public class PlayGround extends JPanel{
 	IClient mainClient;
@@ -93,6 +98,8 @@ public class PlayGround extends JPanel{
 	}
 	public void CreatePlayGroundFrame()
 	{
+		// add song
+		Sound.Cricket.loop();
 		mainMenu.setMenuVisibility(false);
 		pgframe.setPreferredSize(new Dimension(FrameWidth + 6, FrameHeight));
 		pgframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -215,6 +222,8 @@ public class PlayGround extends JPanel{
 		endLabel.setIcon(new ImageIcon(img.getScaledInstance(FrameWidth, FrameHeight, Image.SCALE_DEFAULT)));
 		endPanel.setBounds(0, 0, FrameWidth, FrameHeight);
 		endPanel.add(endLabel);*/
+		//stop sound
+		Sound.Cricket.stop();
 		// save the scores
 		rem.CloseTimer();
 		mainClient.addLastHittedScores(hittedWords);
@@ -519,7 +528,8 @@ public class PlayGround extends JPanel{
 			 // add new score
 			 hittedWords ++;
 			 refreshScores();
-			 toolkit.beep();
+			 //sound
+			 Sound.Yeah.play();
 			 Color mygreen = new Color(172, 205, 175);
 			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.green, 0));
 			 wordLabelList.get(wordIndex).setForeground(mygreen);
@@ -535,6 +545,8 @@ public class PlayGround extends JPanel{
 			 }
 			 //drawmatrix();
 			 badWords++;
+			 //sound
+			 Sound.Bad.play();
 			 refreshScores();
 			 wordLabelList.get(wordIndex).setBorder(BorderFactory.createLineBorder(Color.gray, 3));
 			 wordLabelList.get(wordIndex).setOpaque(true);

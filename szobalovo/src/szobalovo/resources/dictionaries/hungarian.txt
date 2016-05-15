@@ -1,4 +1,4 @@
-üzér
+﻿üzér
 üzletág
 üzletvezető
 üzletszerző

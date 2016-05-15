@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 import szobalovo.GameSettings.Languages;
+import szobalovo.PlayGroundPanel.Sound;
 
 public class SettingsGUI {
 
@@ -42,7 +43,10 @@ public class SettingsGUI {
 		this.playerSettings = playerSettings;
 		this.mainMenu = mainmenu;
 		mainMenu.setMenuVisibility(false);
+		
 		initialize();
+		//sound
+		Sound.Abc.loop();
 		frame.setVisible(true);
 		
 	}
@@ -278,7 +282,9 @@ public class SettingsGUI {
 			playerSettings.setPlayerName(playerName.getText());
 			//System.out.println(selectLanguage.getSelectedItem());
 			mainclient.SetGameLevel(Integer.parseInt(levelOfGame.getText()));
+			Sound.Abc.stop();
 			mainMenu.setMenuVisibility(true);
+			
 			
 		}
 		finally

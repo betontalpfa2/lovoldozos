@@ -1,11 +1,22 @@
 package szobalovo;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Image;
 
 import javax.swing.JFrame;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import com.sun.media.jfxmedia.MediaPlayer;
+
+import javafx.scene.shape.Line;
+import szobalovo.PlayGroundPanel.Sound;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,6 +24,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class MainMenuGUI {
 
@@ -20,7 +32,7 @@ public class MainMenuGUI {
 	private JFrame frame;
 	IClient mainclient;
 	PlayerSettings playerSettings;
-
+	boolean IsSound = false;
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +58,7 @@ public class MainMenuGUI {
 		mainclient.SetGameLevel(1);
 		this.playerSettings = PlaySett;
 		initialize();
+		Sound.Abc.loop();
 		this.frame.setVisible(true);
 	}
 
@@ -61,7 +74,7 @@ public class MainMenuGUI {
 		// border which is help to show the buttons
 		Border GreyBorder = LineBorder.createGrayLineBorder();
 		JLabel label = new JLabel("");
-		Image img = new ImageIcon(this.getClass().getResource("/MainMenubackground.png")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("/MainMenubackgroundV.png")).getImage();
 		
 		JLabel ExitLabelButton = new JLabel("");
 		ExitLabelButton.addMouseListener(new MouseAdapter() {
@@ -166,6 +179,25 @@ public class MainMenuGUI {
 				SingleLabelButton.setBorder(OldBorderSingle);
 			}
 		});
+		
+		JLabel SoundLabButt = new JLabel("");
+		SoundLabButt.addMouseListener(new MouseAdapter() {
+			Border OldBorderSingle = SoundLabButt.getBorder();
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SoundButtonClicked(SoundLabButt);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				SoundLabButt.setBorder(GreyBorder);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				SoundLabButt.setBorder(OldBorderSingle);
+			}
+		});
+		SoundLabButt.setBounds(176, 318, 39, 37);
+		frame.getContentPane().add(SoundLabButt);
 		SingleLabelButton.setBounds(25, 27, 187, 35);
 		frame.getContentPane().add(SingleLabelButton);
 		MultiLabelButton.setBounds(166, 79, 195, 35);
@@ -200,7 +232,7 @@ public class MainMenuGUI {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		
+				Sound.Abc.stop();
 			PlayGround newPlay = new PlayGround(true, mainclient, playerSettings, this);
 			newPlay.CreatePlayGroundFrame();
 
@@ -253,10 +285,50 @@ public class MainMenuGUI {
 		{
 		}
 	}
+	
+	private void SoundButtonClicked(JLabel parent)
+	{
+		//IsSound
+		try
+		{
+			if(IsSound)
+			{
+				// necessary to remove the sound
+				Image img = new ImageIcon(this.getClass().getResource("/Xpics.png")).getImage();
+				parent.setIcon(new ImageIcon(img.getScaledInstance(39, 37, Image.SCALE_DEFAULT)));
+				IsSound = !IsSound;
+				Sound.Abc.stop();
+				Sound.dumbnoises();
+				
+			}
+			else
+			{
+				parent.setIcon(null);
+				Sound.releasenoises();
+				Sound.Abc.loop();
+				IsSound = !IsSound;
+			}
+		
+		}
+		catch(Exception e)
+		{
+			//do nothing
+		}
+	
+	}
 	public void setMenuVisibility(boolean isVisible)
 	{
 		try
 		{ 
+			if(isVisible)
+			{
+				Sound.Abc.stop();
+				Sound.Abc.loop();
+			}
+			else
+			{
+				Sound.Abc.stop();	
+			}
 			this.frame.setVisible(isVisible);
 		}
 		catch(Exception e)
@@ -264,4 +336,6 @@ public class MainMenuGUI {
 			
 		}
 	}
+
+
 }

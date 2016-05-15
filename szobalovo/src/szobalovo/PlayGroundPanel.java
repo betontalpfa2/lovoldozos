@@ -6,9 +6,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.applet.*;
 
 public class PlayGroundPanel extends JPanel {
 
@@ -241,7 +243,13 @@ public class PlayGroundPanel extends JPanel {
 	 {
 		 if(!showBullet)
 		 {
+			 try
+			 {
+			 //Sound
+			 
+			 Sound.Shoot.play();
 			 // get the currentlx selected character to shoot it
+
 			 this.currBullChar= playG.getCurrentCharToShoot();
 			 // the initial value of the bullet
 			bullXpos=this.getWidth()/2 - 5; // need a little offset
@@ -249,6 +257,11 @@ public class PlayGroundPanel extends JPanel {
 	        IsXkoordAngle  = CannonAngle;
 	        this.showBullet = true;
 	        this.repaint();
+			 }
+			 catch(Exception e)
+			 {
+				 JOptionPane.showMessageDialog(null, e.getMessage());
+			 }
 		 }
 	 }
 	 public void EndGame()
@@ -263,6 +276,38 @@ public class PlayGroundPanel extends JPanel {
 		 }
 	 }
 	 
+	 public static class Sound extends java.lang.Object{
+	 public static  AudioClip Shoot = Applet.newAudioClip(Sound.class.getResource("/bamf.wav"));
+	 public static  AudioClip Cancan = Applet.newAudioClip(Sound.class.getResource("/cancan.wav"));
+	 public static  AudioClip Abc = Applet.newAudioClip(Sound.class.getResource("/abc.wav"));
+	 public static  AudioClip Yeah = Applet.newAudioClip(Sound.class.getResource("/yeah.wav"));
+	 public static  AudioClip Bad = Applet.newAudioClip(Sound.class.getResource("/bad.wav"));
+	 public static  AudioClip Applause = Applet.newAudioClip(Sound.class.getResource("/applause.wav"));
+	 public static  AudioClip Cricket = Applet.newAudioClip(Sound.class.getResource("/cricket.wav"));
+	 public static void dumbnoises()
+	 {
+		  Shoot = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
+		  Cancan = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
+		  Abc = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
+		  Yeah = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
+		  Bad = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));;
+		  Applause = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
+		  Cricket = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
+	 }	 
+	 public static void releasenoises()
+	 {
+		  	 Shoot = Applet.newAudioClip(Sound.class.getResource("/bamf.wav"));
+		     Cancan = Applet.newAudioClip(Sound.class.getResource("/cancan.wav"));
+		     Abc = Applet.newAudioClip(Sound.class.getResource("/abc.wav"));
+		     Yeah = Applet.newAudioClip(Sound.class.getResource("/yeah.wav"));
+		     Bad = Applet.newAudioClip(Sound.class.getResource("/bad.wav"));
+		     Applause = Applet.newAudioClip(Sound.class.getResource("/applause.wav"));
+		     Cricket = Applet.newAudioClip(Sound.class.getResource("/cricket.wav"));
+	 }
+	 
+	 }
+
+	
 	  public class MyKeyListener implements KeyListener {
 		  PlayGroundPanel GameClass = null;
 			public MyKeyListener(PlayGroundPanel gameclass)
