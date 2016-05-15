@@ -18,7 +18,7 @@ public class SettingsGUI {
 
 	private JFrame frame;
 	private JTextField playerName;
-	String[] possibleLanguages = { "English", "Hungarian"};
+	String[] possibleLanguages = { "Hungarian", "English"};
 	private JLabel aboutLabelButton;
 	private JLabel saveBackLabelButton;
 	private JTextField levelOfGame;
@@ -32,13 +32,16 @@ public class SettingsGUI {
 	JComboBox<Languages> selectLanguage;
 	IClient mainclient;
 	PlayerSettings playerSettings;
+	MainMenuGUI mainMenu;
 
 	/**
 	 * Create the application.
 	 */
-	public SettingsGUI(IClient mainclient, PlayerSettings playerSettings) {
+	public SettingsGUI(IClient mainclient, PlayerSettings playerSettings, MainMenuGUI mainmenu) {
 		this.mainclient = mainclient;
 		this.playerSettings = playerSettings;
+		this.mainMenu = mainmenu;
+		mainMenu.setMenuVisibility(false);
 		initialize();
 		frame.setVisible(true);
 		
@@ -122,7 +125,7 @@ public class SettingsGUI {
 
 		levelOfGame = new JTextField();
 		levelOfGame.setHorizontalAlignment(SwingConstants.CENTER);
-		levelOfGame.setText("1");
+		levelOfGame.setText( "" + mainclient.getGameLevel());
 		levelOfGame.setEditable(false);
 		levelOfGame.setBounds(170, 96, 37, 21);
 		frame.getContentPane().add(levelOfGame);
@@ -182,7 +185,7 @@ public class SettingsGUI {
 		
 		timeOfPlay = new JTextField();
 		timeOfPlay.setHorizontalAlignment(SwingConstants.CENTER);
-		timeOfPlay.setText("5");
+		timeOfPlay.setText("" + mainclient.getTimeofPlay());
 		timeOfPlay.setEditable(false);
 		timeOfPlay.setBounds(172, 144, 37, 21);
 		frame.getContentPane().add(timeOfPlay);
@@ -274,6 +277,8 @@ public class SettingsGUI {
 			settings.playTime = Integer.parseInt(timeOfPlay.getText());
 			playerSettings.setPlayerName(playerName.getText());
 			//System.out.println(selectLanguage.getSelectedItem());
+			mainclient.SetGameLevel(Integer.parseInt(levelOfGame.getText()));
+			mainMenu.setMenuVisibility(true);
 			
 		}
 		finally

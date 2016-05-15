@@ -172,6 +172,9 @@ public class Engine implements IEngine {
 		case HUNGARIAN:
 			currentAlphabet = currentAlphabet + hunExtension;// the spec karakterek nem jok nalam
 			break;
+		case ENGLISH:
+			//currentAlphabet = currentAlphabet;// the spec karakterek nem jok nalam
+			break;
 
 		default:
 			throw new IllegalArgumentException("Unrecognised language: " + gameSettings.language.toString());
@@ -217,7 +220,14 @@ public class Engine implements IEngine {
 	//function to add the time of the play in min
 	public int getTimeofPlay()
 	{
+		try
+		{
 		return gameSettings.playTime;
+		}
+		catch(Exception e)
+		{
+			return 1;
+		}
 	}
 	
 	
@@ -275,6 +285,69 @@ public class Engine implements IEngine {
 	public void addLastMissedScores( int newmiss)
 	{
 	  gameSettings.playerLastMissedScore = newmiss;
+	}
+	
+	// function to create a game levels
+	public void SetGameLevel(int gameLevel)
+	{
+		try
+		{
+			gameSettings.levelOfGame = gameLevel;
+			// the gameLevel variable can be between 1 and 5
+			/* level 1: num of words:5, min length:3 ,max length: 5 
+			 * level 2: num of words:10, min length:3 ,max length: 7
+			 * level 3: num of words:12, min length:4 ,max length: 7
+			 * level 4: num of words:15, min length:3 ,max length: 5
+			 * level 5: num of words:20, min length:4 ,max length: 6
+			 */
+			switch (gameLevel) {
+	            case 1:
+	            	gameSettings.nOfgeneratedWords = 5;
+	            	gameSettings.minWordLength = 3;
+	            	gameSettings.maxWordLength = 5;
+	            	break;
+	            case 2:
+	            	gameSettings.nOfgeneratedWords = 10;
+	            	gameSettings.minWordLength = 3;
+	            	gameSettings.maxWordLength = 7;
+	            	break;
+	            case 3:
+	            	gameSettings.nOfgeneratedWords = 12;
+	            	gameSettings.minWordLength = 4;
+	            	gameSettings.maxWordLength = 7;
+	            	break;
+	            case 4:
+	            	gameSettings.nOfgeneratedWords = 15;
+	            	gameSettings.minWordLength = 3;
+	            	gameSettings.maxWordLength = 5;
+	            	break;
+	            case 5:
+	            	gameSettings.nOfgeneratedWords = 20;
+	            	gameSettings.minWordLength = 4;
+	            	gameSettings.maxWordLength = 6;
+	            	break;
+	            default:
+	            	break;
+			}
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	// function to add the gamelevel variable
+	 public int  getGameLevel()
+	{
+		 try
+		 {
+			return gameSettings.levelOfGame; 
+		 }
+		 catch(Exception e)
+		 {
+			 return 1;
+		 }
+	
 	}
 	
 /*	public static void main(String[] args){

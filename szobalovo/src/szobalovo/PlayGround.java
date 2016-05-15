@@ -29,6 +29,7 @@ import szobalovo.PlayGround;
 
 public class PlayGround extends JPanel{
 	IClient mainClient;
+	MainMenuGUI mainMenu;
 	// playersetting class which stores the name of the player
 	PlayerSettings playerSettings;
 	private static int FrameWidth = 600;
@@ -83,14 +84,16 @@ public class PlayGround extends JPanel{
     private int hittedWords = 0;
     private int badWords = 0;
     
-	public PlayGround(boolean isVisible, IClient mainClient, PlayerSettings PlayerSettings)
+	public PlayGround(boolean isVisible, IClient mainClient, PlayerSettings PlayerSettings, MainMenuGUI mainmenu)
 	{
 		this.mainClient = mainClient;
 		this.isVisible =isVisible;
 		this.playerSettings = PlayerSettings;
+		this.mainMenu = mainmenu;
 	}
 	public void CreatePlayGroundFrame()
 	{
+		mainMenu.setMenuVisibility(false);
 		pgframe.setPreferredSize(new Dimension(FrameWidth + 6, FrameHeight));
 		pgframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pgframe.setResizable(false);
@@ -151,6 +154,7 @@ public class PlayGround extends JPanel{
 		//pglpane.add(labPan_1, new Integer(2), 0);
 		pgframe.pack();
         pgframe.setVisible(true);
+        
         this.DrawCharLabels();
         // characters
         this.refCharList();
@@ -196,13 +200,13 @@ public class PlayGround extends JPanel{
 	}
 	else
 	{
-		rem.CloseTimer();
+		
 		EndofGame();
 	}
 	}
 	
 	//function to end the game
-	private void EndofGame()
+	public void EndofGame()
 	{ 
 		/*JPanel endPanel = new JPanel();
 		JLabel endLabel  = new JLabel("");
@@ -212,6 +216,7 @@ public class PlayGround extends JPanel{
 		endPanel.setBounds(0, 0, FrameWidth, FrameHeight);
 		endPanel.add(endLabel);*/
 		// save the scores
+		rem.CloseTimer();
 		mainClient.addLastHittedScores(hittedWords);
 		mainClient.addHittedScores(hittedWords);
 		mainClient.addLastBadScores(badWords);
@@ -219,7 +224,15 @@ public class PlayGround extends JPanel{
 		mainClient.addLastMissedScores(myWordList.size()-badWords - hittedWords);
 		mainClient.addMissedScores(myWordList.size()-badWords - hittedWords);
 		pgframe.setEnabled(false);
-		JOptionPane.showMessageDialog(null,"end of the game");
+		//JOptionPane.showMessageDialog(null,"End of the game");
+	
+		ScoresGUI scores = new ScoresGUI( mainClient,  playerSettings,  mainMenu, this);
+		scores.showframe();
+		//pgframe.setVisible(false);
+		//mainMenu.setMenuVisibility(true);
+	}
+	public void hidePlayGround()
+	{
 		pgframe.setVisible(false);
 	}
 	
@@ -295,7 +308,6 @@ public class PlayGround extends JPanel{
 		     if(missw == 0)
 		     {
 		    	 // end of the game
-		    	 rem.CloseTimer();
 		    	 EndofGame();
 		     }
 		}

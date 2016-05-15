@@ -71,5 +71,9 @@ public interface IClient {
 	 void addLastBadScores(int newbad);
 
 	 void addLastMissedScores( int newmiss);
+	 // set the level of the game
+	 void SetGameLevel(int gameLevel);
+	//get
+	 int  getGameLevel();
 
 }

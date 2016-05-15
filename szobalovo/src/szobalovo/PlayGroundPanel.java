@@ -251,6 +251,17 @@ public class PlayGroundPanel extends JPanel {
 	        this.repaint();
 		 }
 	 }
+	 public void EndGame()
+	 {
+		 try
+		 {
+			 playG.EndofGame();
+		 }
+		 catch(Exception e)
+		 {
+			 
+		 }
+	 }
 	 
 	  public class MyKeyListener implements KeyListener {
 		  PlayGroundPanel GameClass = null;
@@ -301,7 +312,7 @@ public class PlayGroundPanel extends JPanel {
 				//exit
 				if(KeyEvent.getKeyText(e.getKeyCode()) == "Escape" && GameClass != null)
 				{
-					System.exit(0);
+					GameClass.EndGame();
 
 				}
 			}

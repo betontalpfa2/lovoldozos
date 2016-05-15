@@ -43,6 +43,7 @@ public class MainMenuGUI {
 	 */
 	public MainMenuGUI(IClient mainClient, PlayerSettings PlaySett) {
 		this.mainclient = mainClient;
+		mainclient.SetGameLevel(1);
 		this.playerSettings = PlaySett;
 		initialize();
 		this.frame.setVisible(true);
@@ -191,6 +192,7 @@ public class MainMenuGUI {
 		{
 			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
 			//JOptionPane.showMessageDialog(null,mainclient.getSettings().language.toString());
+			 
 			
 				try {
 					mainclient.initNewGame();
@@ -199,7 +201,7 @@ public class MainMenuGUI {
 					e.printStackTrace();
 				}
 		
-			PlayGround newPlay = new PlayGround(true, mainclient, playerSettings);
+			PlayGround newPlay = new PlayGround(true, mainclient, playerSettings, this);
 			newPlay.CreatePlayGroundFrame();
 
 			
@@ -222,7 +224,7 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			new SettingsGUI(mainclient, playerSettings);
+			new SettingsGUI(mainclient, playerSettings, this);
 			
 		}
 		finally
@@ -233,7 +235,9 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			JOptionPane.showMessageDialog(null,"HighScore menu");
+			setMenuVisibility(false);
+			ScoresGUI scores = new ScoresGUI( mainclient,  playerSettings,  this, null);
+			scores.showframe();
 		}
 		finally
 		{
@@ -247,6 +251,17 @@ public class MainMenuGUI {
 		}
 		finally
 		{
+		}
+	}
+	public void setMenuVisibility(boolean isVisible)
+	{
+		try
+		{ 
+			this.frame.setVisible(isVisible);
+		}
+		catch(Exception e)
+		{
+			
 		}
 	}
 }

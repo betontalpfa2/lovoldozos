@@ -8,8 +8,8 @@ package szobalovo;
  */
 public class GameSettings {
 	public enum Languages {
-	    HUNGARIAN,
-	    ENGLISH
+		ENGLISH,
+	    HUNGARIAN
 	}
 
 	/**************************************************************************
@@ -96,6 +96,8 @@ public class GameSettings {
 	 */
 	public int nOfgeneratedWords;
 	
+	public int levelOfGame;
+	
 	/**
 	 * The player sees at this number of characters in the bottom-right on the
 	 * screen. These characters can be shot next. 
@@ -149,6 +151,7 @@ public class GameSettings {
 	public boolean verify() {
 		assert maxWordLength<10: "maxWordLength";
 		assert maxWordLength>2: "maxWordLength";
+		
 
 		assert minWordLength>1: "minWordLength";
 		assert minWordLength<5: "minWordLength";
@@ -181,12 +184,13 @@ public class GameSettings {
 
 		EnemyIntelligence = 50;
 
-		language = Languages.HUNGARIAN;
+		language = Languages.ENGLISH;
 		
 		minWordLength = 2;
 		maxWordLength = 6;
 		
 		nOfgeneratedWords = 20;
+		levelOfGame = 1;
 		
 		nOfPregeneratedLetters = 5;
 		          
@@ -200,6 +204,8 @@ public class GameSettings {
 		playerLastHittedScore = 0;
 		playerLastBadScore = 0;
 		playerLastMissedScore = 0;
+		
+		
 		
 		// TODO
 		/*rotateCannonRightKey;
