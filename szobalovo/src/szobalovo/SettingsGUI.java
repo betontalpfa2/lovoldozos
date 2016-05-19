@@ -15,6 +15,10 @@ import javax.swing.SwingConstants;
 import szobalovo.GameSettings.Languages;
 import szobalovo.PlayGroundPanel.Sound;
 
+/*
+ * class to create settings gui
+ * 
+ */
 public class SettingsGUI {
 
 	private JFrame frame;
@@ -38,7 +42,9 @@ public class SettingsGUI {
 	/**
 	 * Create the application.
 	 */
+	// constructor
 	public SettingsGUI(IClient mainclient, PlayerSettings playerSettings, MainMenuGUI mainmenu) {
+		// save the classes parameters
 		this.mainclient = mainclient;
 		this.playerSettings = playerSettings;
 		this.mainMenu = mainmenu;
@@ -64,6 +70,7 @@ public class SettingsGUI {
 		
 		JLabel backgroundLabel = new JLabel("");
 		backgroundLabel.setBounds(0, 0, 389, 379);
+		// set the background image
 		Image img = new ImageIcon(this.getClass().getResource("/SettingsGUIbackground.png")).getImage();
 		
 		/**
@@ -72,7 +79,7 @@ public class SettingsGUI {
 		 */
 		playerName = new JTextField();
 		playerName.setHorizontalAlignment(SwingConstants.CENTER);
-		//playerName.setText(mainclient.getSettings().playerName);
+		//set the player name based on the 
 		playerName.setText(playerSettings.getPlayerName());
 		playerName.setBounds(170, 54, 128, 18);
 		frame.getContentPane().add(playerName);
@@ -82,6 +89,7 @@ public class SettingsGUI {
 		 * ---------------------------------------------------------------------
 		 * Setup: game level buttons
 		 */
+		//level up button
 		JLabel gameLevelUp = new JLabel("");
 		gameLevelUp.addMouseListener(new MouseAdapter() {
 			@Override
@@ -103,7 +111,7 @@ public class SettingsGUI {
 				gameLevelUp.setBorder(OldBorderGLUp);
 			}
 		});
-		
+		//level down button
 		JLabel GameLevelDown = new JLabel("");
 		GameLevelDown.addMouseListener(new MouseAdapter() {
 			@Override
@@ -261,6 +269,7 @@ public class SettingsGUI {
 	{
 		try
 		{
+			// show the About menu gui
 			new AboutMenuGUI();
 		}
 		finally
@@ -273,15 +282,16 @@ public class SettingsGUI {
 	{
 		try
 		{
-
+			// get the settings from the engine
 			GameSettings settings = mainclient.getSettings();
-//			GameSettings settings = MainMenuGUI.engine.getSettings();
+			//save the player name to the local interface
 			settings.playerName = playerName.getText();
+			//save the global settings
 			settings.language = (Languages)(selectLanguage.getSelectedItem());
 			settings.playTime = Integer.parseInt(timeOfPlay.getText());
 			playerSettings.setPlayerName(playerName.getText());
-			//System.out.println(selectLanguage.getSelectedItem());
 			mainclient.SetGameLevel(Integer.parseInt(levelOfGame.getText()));
+			//stop the sound
 			Sound.Abc.stop();
 			mainMenu.setMenuVisibility(true);
 			

@@ -1,34 +1,24 @@
 package szobalovo;
 
-
-
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import java.awt.Toolkit;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import szobalovo.PlayGround;
 import szobalovo.PlayGroundPanel.Sound;
 
@@ -81,7 +71,7 @@ public class PlayGround extends JPanel{
     private int charWidth = 20;
     List<String> myWordList;
 	List<JLabel> wordLabelList;
- // matrix to store the words
+	// matrix to store the words
     // one item of the matrixPl. 312 meaning: the third character of the 12th word. the index of the first character is 1!
     // the maximum number of rows is 5 and one the maximum wors length is 9.
     int[][] wordmatrix = new int[5][30]; 
@@ -100,25 +90,24 @@ public class PlayGround extends JPanel{
 	{
 		// add song
 		Sound.Cricket.loop();
+		//Hide the main menu
 		mainMenu.setMenuVisibility(false);
+		// the whole frame
 		pgframe.setPreferredSize(new Dimension(FrameWidth + 6, FrameHeight));
 		pgframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pgframe.setResizable(false);
 		pgframe.setLayout(new BorderLayout());
 		pgframe.add(pglpane, BorderLayout.CENTER);
 		pglpane.setBounds(0, 0, FrameWidth, FrameHeight);
+		//the gray base on the bottom of the frame
 		marginPanel.setBackground(Color.gray);
 		marginPanel.setBounds(0, 0, FrameWidth, FrameHeight);
 		marginPanel.setOpaque(true);
 		pgpanel.setBounds(0, 0, FrameWidth, FrameHeight - 100);
 		pgpanel.setOpaque(true);
-		
-		/*labPan_1.setBounds(50, 60, 50, 20);
-		labPan_1.setOpaque(false);
-		labPan_1.add(wordLab_1);*/
 		pglpane.add(marginPanel, new Integer(0), 0);
 		pglpane.add(pgpanel, new Integer(1), 0);
-		//
+		//string to show the player name
 		String namepl = playerSettings.getPlayerName();
 		UserName.setText(namepl);
 		UserName.setFont(new Font(UserName.getFont().getName(), Font.BOLD, (int)(UserName.getFont().getSize()*2.3)));
@@ -126,6 +115,7 @@ public class PlayGround extends JPanel{
 		UserNamePanel.setOpaque(false);
 		UserNamePanel.setBounds(10, 350, namepl.length()*20,200);
 		UserNamePanel.add(UserName);
+		//soldier pics
 		Image img = new ImageIcon(this.getClass().getResource("/soldier.png")).getImage();
 		SoldierPics.setIcon(new ImageIcon(img.getScaledInstance(namepl.length()*20, 150, Image.SCALE_DEFAULT)));
 		SoldierPics.setBounds(0, 30, namepl.length()*20, 170);
@@ -170,10 +160,6 @@ public class PlayGround extends JPanel{
         
         refreshScores();
         rem = new ReminderBeep(1);
-        /*Timer timer;
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        timer = new Timer();
-	    timer.schedule(new RemindTask(), seconds * 1000);*/
         
 	}
 	//
@@ -434,12 +420,7 @@ public class PlayGround extends JPanel{
 				rowindex++;// one row below
 			}
 			}
-			/*else if(j == wordLabelList.size()-1 && wordXLoc > FrameWidth-20)
-			{
-				wordXLoc = wordMargin;
-				wordYLoc+= 60;
-			 
-			}*/
+			
 			
 		}
 		
@@ -543,7 +524,7 @@ public class PlayGround extends JPanel{
 					 wordmatrix[rowindex][index] = -1;// get out the word of the matrix
 				 }
 			 }
-			 //drawmatrix();
+			
 			 badWords++;
 			 //sound
 			 Sound.Bad.play();
@@ -560,7 +541,7 @@ public class PlayGround extends JPanel{
 	catch(Exception e)
 	{
 		//do nothing
-		//JOptionPane.showMessageDialog(null,e.getMessage() + "  errrorrr");
+
 	}
 	
 	}
@@ -577,6 +558,7 @@ public class PlayGround extends JPanel{
 			return null;
 		}
 	}
+	//function to draw the matric to the console -- only for the debug
 	private void drawmatrix()
 	{
 		for(int i =0; i<5; i++)
@@ -591,7 +573,7 @@ public class PlayGround extends JPanel{
 	}
 
 	
-  //timer
+  //timer to detect the end of the game
 	public class ReminderBeep {
 		  Toolkit toolkit;
 
@@ -602,20 +584,20 @@ public class PlayGround extends JPanel{
 		    timer = new Timer();
 		    timer.schedule(new RemindTask(), seconds * 1000);
 		  }
+		  //function to schedule
 		  public void timerAgain(int seconds)
 		  {
 			  timer.schedule(new RemindTask(), seconds * 1000);
 		  
 		  }
+		  //function to close the timer
 		  public void CloseTimer()
 		  {
 		  timer.cancel();
 		  }
 		  class RemindTask extends TimerTask {
 		    public void run() {
-		      //System.out.println("Time's up!");
-		      //toolkit.beep();
-		      //timer.cancel(); //Not necessary because we call System.exit
+		    	// call the function to decrease the timer
 		      decreaseTimer();
 		    }
 		  }

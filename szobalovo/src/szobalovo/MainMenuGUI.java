@@ -1,64 +1,42 @@
 package szobalovo;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.Image;
-
 import javax.swing.JFrame;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.Mixer;
 import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import com.sun.media.jfxmedia.MediaPlayer;
-
-import javafx.scene.shape.Line;
 import szobalovo.PlayGroundPanel.Sound;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.LinkedList;
-
+/*
+ * this class contains the main menu
+ * possible to start the game or customize the game settings
+ */
 public class MainMenuGUI {
 
 //	static Engine engine;
 	private JFrame frame;
 	IClient mainclient;
 	PlayerSettings playerSettings;
-	boolean IsSound = false;
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		engine = new Engine();
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+	boolean IsSound = true;
 
 	/**
 	 * Create the application.
 	 */
+	//constructor
 	public MainMenuGUI(IClient mainClient, PlayerSettings PlaySett) {
 		this.mainclient = mainClient;
+		//set the default level
 		mainclient.SetGameLevel(1);
+		//save the playersettings interface
 		this.playerSettings = PlaySett;
 		initialize();
+		//start the sound
 		Sound.Abc.loop();
+		//show the menu
 		this.frame.setVisible(true);
 	}
 
@@ -75,25 +53,28 @@ public class MainMenuGUI {
 		Border GreyBorder = LineBorder.createGrayLineBorder();
 		JLabel label = new JLabel("");
 		Image img = new ImageIcon(this.getClass().getResource("/MainMenubackgroundV.png")).getImage();
-		
+		// the buttons are represented by Labels, I guess this is the most useful solution
+		//Exit button
 		JLabel ExitLabelButton = new JLabel("");
 		ExitLabelButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
+			// save the default border
 			Border OldBorderExit = ExitLabelButton.getBorder();
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				
+				// set the gray border to indicate the user, the size of the button
 				ExitLabelButton.setBorder(GreyBorder);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				// release the original border
 				ExitLabelButton.setBorder(OldBorderExit);
 			}
 		});
-		
+		//About button
 		JLabel AboutLabelButton = new JLabel("");
 		AboutLabelButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -110,7 +91,7 @@ public class MainMenuGUI {
 				AboutLabelButton.setBorder(OldBorderAbout);
 			}
 		});
-		
+		// high score button
 		JLabel HighScoreLabelButton = new JLabel("");
 		HighScoreLabelButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -127,7 +108,7 @@ public class MainMenuGUI {
 				HighScoreLabelButton.setBorder(OldBorderHighScore);
 			}
 		});
-		
+		//settings button
 		JLabel SettingsLabelButton = new JLabel("");
 		SettingsLabelButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -144,7 +125,7 @@ public class MainMenuGUI {
 				SettingsLabelButton.setBorder(OldBorderSettings);
 			}
 		});
-		
+		//multiplayer button
 		JLabel MultiLabelButton = new JLabel("");
 		MultiLabelButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -162,7 +143,7 @@ public class MainMenuGUI {
 			}
 			
 		});
-		
+		//single player button
 		JLabel SingleLabelButton = new JLabel("");
 		SingleLabelButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -179,7 +160,7 @@ public class MainMenuGUI {
 				SingleLabelButton.setBorder(OldBorderSingle);
 			}
 		});
-		
+		//sound button
 		JLabel SoundLabButt = new JLabel("");
 		SoundLabButt.addMouseListener(new MouseAdapter() {
 			Border OldBorderSingle = SoundLabButt.getBorder();
@@ -196,6 +177,7 @@ public class MainMenuGUI {
 				SoundLabButt.setBorder(OldBorderSingle);
 			}
 		});
+		// set the sizes and add the labels to the frame
 		SoundLabButt.setBounds(176, 318, 39, 37);
 		frame.getContentPane().add(SoundLabButt);
 		SingleLabelButton.setBounds(25, 27, 187, 35);
@@ -222,21 +204,20 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			//JOptionPane.showMessageDialog(null,"SignlePlayermenu");
-			//JOptionPane.showMessageDialog(null,mainclient.getSettings().language.toString());
-			 
-			
 				try {
+					//create new game in the engine
 					mainclient.initNewGame();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				//stop the sound
 				Sound.Abc.stop();
+				// create new playground
 			PlayGround newPlay = new PlayGround(true, mainclient, playerSettings, this);
+			//show the playground
 			newPlay.CreatePlayGroundFrame();
 
-			
 		}
 		finally
 		{
@@ -246,12 +227,13 @@ public class MainMenuGUI {
 	{
 		try
 		{
-			JOptionPane.showMessageDialog(null,"Multiplayer menu");
+			JOptionPane.showMessageDialog(null,"This function is not supported yet! ");
 		}
 		finally
 		{
 		}
 	}
+	//show the setting menu
 	public void SettingsMenu()
 	{
 		try
@@ -263,6 +245,7 @@ public class MainMenuGUI {
 		{
 		}
 	}
+	//show the high score menu
 	public void HighScoreMenu()
 	{
 		try
@@ -275,6 +258,7 @@ public class MainMenuGUI {
 		{
 		}
 	}
+	//show the About menu
 	public void AboutMenu()
 	{
 		try
@@ -285,7 +269,7 @@ public class MainMenuGUI {
 		{
 		}
 	}
-	
+	//stop or release the sounds of the program
 	private void SoundButtonClicked(JLabel parent)
 	{
 		//IsSound
@@ -316,6 +300,7 @@ public class MainMenuGUI {
 		}
 	
 	}
+	
 	public void setMenuVisibility(boolean isVisible)
 	{
 		try

@@ -12,6 +12,7 @@ public class LocalEngine {
 	
 	// engine instance
 	IClient mainClient;
+	//constructor
 	public LocalEngine(IClient MainClient)
 	{
 		this.mainClient = MainClient;
@@ -20,7 +21,4 @@ public class LocalEngine {
 	{
 		new MainMenuGUI(mainClient, PlayerSet);
 	}
-	
-	
-
 }

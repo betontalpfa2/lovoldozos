@@ -8,12 +8,13 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
 import szobalovo.PlayGroundPanel.Sound;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/*
+ * Class to add information about the softver developer
+ */
 public class AboutMenuGUI {
 
 	private JFrame frame;
@@ -64,6 +65,7 @@ public class AboutMenuGUI {
 		
 		JLabel canlab = new JLabel("");
 		canlab.setBounds(235, 52, 199, 182);
+		// add gif to keep the use happy
 		Image imgcan = new ImageIcon(this.getClass().getResource("/cancang.gif")).getImage();
 		canlab.setIcon(new ImageIcon(imgcan.getScaledInstance(199, 182, Image.SCALE_DEFAULT)));
 		frame.getContentPane().add(canlab);

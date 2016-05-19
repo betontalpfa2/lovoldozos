@@ -1,19 +1,14 @@
 package szobalovo;
 
-import java.awt.EventQueue;
+
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
 import szobalovo.PlayGroundPanel.Sound;
-
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,21 +17,7 @@ public class ScoresGUI {
 
 	private JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ScoresGUI window = new ScoresGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+
 	IClient mainClient;
 	PlayerSettings PlayerSettings;
 	MainMenuGUI mainmenu;
@@ -97,7 +78,7 @@ public class ScoresGUI {
 		 });
 		 CloseButton.setBounds(343, 225, 81, 26);
 		 frame.getContentPane().add(CloseButton);
-		
+		// create the labels to show the scores
 		 allremain = new JLabel("0");
 		allremain.setFont(new Font("Calibri", Font.PLAIN, 20));
 		allremain.setBounds(275, 225, 50, 26);
@@ -134,6 +115,7 @@ public class ScoresGUI {
 	private void refreshscores()
 	{
 		try{
+			// set the values
 		allremain.setText("" +mainClient.getMissedScores());
 		allgreat.setText("" +mainClient.getHittedScores());
 		allbad.setText("" +mainClient.getBadScores());

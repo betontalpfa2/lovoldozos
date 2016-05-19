@@ -28,6 +28,5 @@ public class PlayerSettings {
 			return null;
 		}
 	}
-	
-	
+
 }
