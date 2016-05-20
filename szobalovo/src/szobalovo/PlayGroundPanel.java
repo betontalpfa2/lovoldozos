@@ -1,4 +1,5 @@
 package szobalovo;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -6,26 +7,27 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.applet.*;
-
+/*
+ * class to implement the moving objects of the game
+ */
 public class PlayGroundPanel extends JPanel {
 
 	public static int CannonWidth  = 124; // in px
 	public static int CannongHeight  = 160; // in px
 	private static final long serialVersionUID = 1L;
+	//images
 	BufferedImage cannonimage, backgroundimage;
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
-	// the koordinates of the cannon
+	// the coordinates of the cannon
 	int cannonCenterXKoord = 0;
     int cannonCenterYKoord = 0;
     public int CannonAngle = 0;
     private boolean showBullet = false;
     private int bullXpos = 0, bullYPos = 0, bullDeld = 20;
-    // if the bullet is reach the end of the playground necesary to inverse the direction of the X koord
+    // if the bullet is reach the end of the playground necessary to inverse the direction of the X koord
     private int IsXkoordAngle = 0;
     // instance of the frame class
     PlayGround playG;
@@ -107,7 +109,7 @@ public class PlayGroundPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+        /**Collision detection**/
         // necessary to check the y koordinates
         if(bullYPos<290 && bullYPos>270)
         {
@@ -183,6 +185,7 @@ public class PlayGroundPanel extends JPanel {
         		this.repaint();
         	}
         }
+        // the first row
         else if(bullYPos<90 && bullYPos>70)
         {
         	int YposState = playG.checkSlammingBullet(0, bullXpos);
@@ -205,7 +208,7 @@ public class PlayGroundPanel extends JPanel {
         else if(bullYPos>50)
 	        {
 	        	this.repaint();
-	        	//System.out.println(bullYPos);
+	        	//stop the bullet
 	        }
 	    else
 	        {
@@ -275,17 +278,28 @@ public class PlayGroundPanel extends JPanel {
 			 
 		 }
 	 }
-	 
+	 /*
+	  * Class in connection with the audio extensions
+	  * 
+	  */
 	 public static class Sound extends java.lang.Object{
+		 // sound of thw shoot
 	 public static  AudioClip Shoot = Applet.newAudioClip(Sound.class.getResource("/bamf.wav"));
+	 // sound of the about gui
 	 public static  AudioClip Cancan = Applet.newAudioClip(Sound.class.getResource("/cancan.wav"));
+	 //sound of the menus
 	 public static  AudioClip Abc = Applet.newAudioClip(Sound.class.getResource("/abc.wav"));
+	 // sound of the successful shooting
 	 public static  AudioClip Yeah = Applet.newAudioClip(Sound.class.getResource("/yeah.wav"));
+	 //sound of the bad shooting
 	 public static  AudioClip Bad = Applet.newAudioClip(Sound.class.getResource("/bad.wav"));
+	 //sound of the applause
 	 public static  AudioClip Applause = Applet.newAudioClip(Sound.class.getResource("/applause.wav"));
+	 //background sound of the game
 	 public static  AudioClip Cricket = Applet.newAudioClip(Sound.class.getResource("/cricket.wav"));
 	 public static void dumbnoises()
 	 {
+		 // no better idea to stop the sound
 		  Shoot = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
 		  Cancan = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
 		  Abc = Applet.newAudioClip(Sound.class.getResource("/silence.wav"));
@@ -296,6 +310,7 @@ public class PlayGroundPanel extends JPanel {
 	 }	 
 	 public static void releasenoises()
 	 {
+		 //release the sounds
 		  	 Shoot = Applet.newAudioClip(Sound.class.getResource("/bamf.wav"));
 		     Cancan = Applet.newAudioClip(Sound.class.getResource("/cancan.wav"));
 		     Abc = Applet.newAudioClip(Sound.class.getResource("/abc.wav"));
@@ -307,7 +322,9 @@ public class PlayGroundPanel extends JPanel {
 	 
 	 }
 
-	
+	/*
+	 * key listener class to catch the button press
+	 */
 	  public class MyKeyListener implements KeyListener {
 		  PlayGroundPanel GameClass = null;
 			public MyKeyListener(PlayGroundPanel gameclass)
@@ -323,35 +340,34 @@ public class PlayGroundPanel extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				//JOptionPane.showMessageDialog(null,KeyEvent.getKeyText(e.getKeyCode()));
+				
 				
 				if(KeyEvent.getKeyText(e.getKeyCode()) == "Left" && GameClass != null)
 				{
-					//GameClass.MessageBox("Left Button");
+					//left button
 					GameClass.CannonLeftRotate();
 				}
 				if(KeyEvent.getKeyText(e.getKeyCode()) == "Right" && GameClass != null)
 				{
-					//GameClass.MessageBox("Right Button");
+					//right button
 					GameClass.CannonRightRotate();
-					//JOptionPane.showMessageDialog(null,"Right");
+					
 				}
 				if(KeyEvent.getKeyText(e.getKeyCode()) == "Space" && GameClass != null)
 				{
-					//playG.Overwrite("Apfl");
+					//Space button
 					GameClass.ShootABullet();
-					//JOptionPane.showMessageDialog(null,"Right");
+					
 				}
 				if(KeyEvent.getKeyText(e.getKeyCode()) == "Up" && GameClass != null)
 				{
+					//up button the shift the characters
 					 playG.refCharList();
 					
 
 				}
 				if(KeyEvent.getKeyText(e.getKeyCode()) == "Ctrl" && GameClass != null)
 				{
-					// playG.getWordsFromEngine();
-
 				}
 				//getWordsFromEngine
 				//exit
